@@ -14,6 +14,8 @@ export const getEnvironment = () => process.env.NODE_ENV
  */
 export const getApiUrl = () => {
   switch (getEnvironment()) {
+    // case 'heroku_build':
+    //   return '';
     case 'production':
       return 'http://api.mkrn-domain.com';
     case 'stage':
@@ -34,7 +36,9 @@ export const getApiUrl = () => {
 export const getAppUrl = () => {
   switch (getEnvironment()) {
     case 'production':
-      return 'http://app.mkrn-domain.com';
+      return 'https://limitless-beyond-75437.herokuapp.com/';
+    // case 'production':
+    //   return 'http://app.mkrn-domain.com';
     case 'stage':
       return 'http://app-stage.mkrn-stage-domain.com';
     case 'test':

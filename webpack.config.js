@@ -1,12 +1,15 @@
 const polyfill = require('babel-polyfill');
 const path = require('path');
 const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin;
+//const getAppUrl = require('./src/util/environment-utils')
 
 module.exports = () => ({
   entry: [
     'babel-polyfill',
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:8080',
+    ...(process.env.NODE_ENV !== 'production' ? ['react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080'] : []),
+    //'react-hot-loader/patch',
+    //'webpack-dev-server/client?http://localhost:8080',
     path.join(__dirname, 'src/index.js'),
   ],
   output: {
@@ -15,7 +18,8 @@ module.exports = () => ({
   },
   devtool: '#eval-source-map',
   plugins: [
-    new HotModuleReplacementPlugin(),
+    ...(process.env.NODE_ENV !== 'production' ? [new HotModuleReplacementPlugin()] : []),
+    //new HotModuleReplacementPlugin(),
   ],
   module: {
     rules: [
@@ -33,7 +37,10 @@ module.exports = () => ({
                 'react',
                 'stage-2',
               ],
-              plugins: ['react-hot-loader/babel'],
+              plugins: [
+                ...(process.env.NODE_ENV !== 'production' ? ['react-hot-loader/babel'] : []),
+                //'react-hot-loader/babel'
+              ],
             },
           },
         ],

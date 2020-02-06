@@ -43,8 +43,10 @@ import { connect } from 'react-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 //import '../../../../../../node_modules/react-notifications/lib/notifications.css';
 import '../../stylesheets/notifications.scss';
+import { getAppUrl, getApiUrl } from '../../../../../util/environment-utils';
 
-const socket = io('http://localhost:3000');
+//const socket = io('http://localhost:3000');
+const socket = io(`${getApiUrl()}`);
 
 class Crossword extends Component {
   static propTypes = {

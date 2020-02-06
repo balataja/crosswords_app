@@ -38,8 +38,8 @@ module.exports = () => ({
                 'stage-2',
               ],
               plugins: [
-                ...(process.env.NODE_ENV !== 'production' ? ['react-hot-loader/babel'] : []),
-                //'react-hot-loader/babel'
+                //...(process.env.NODE_ENV !== 'production' ? ['react-hot-loader/babel'] : []),
+                'react-hot-loader/babel'
               ],
             },
           },

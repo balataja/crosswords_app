@@ -6,7 +6,7 @@
   "author": "Joshua Anderson Slate",
   "license": "MIT",
   "scripts": {
-    "start": "export NODE_ENV=production|| set NODE_ENV=production && webpack",
+    "start": "webpack-dev-server --progress --colors --hot",
     "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack"
   },"engines": {
     "node": "8.12.0"
@@ -19,8 +19,7 @@
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-jsx-a11y": "5.0.1",
     "eslint-plugin-react": "7.1.0",
-    "react-hot-loader": "3.0.0-beta.3",
-    "webpack-dev-server": "^2.5.1"
+    "react-hot-loader": "3.0.0-beta.3"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -60,7 +59,8 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "node-sass": "^4.5.3",
-    "wolfy87-eventemitter": "^5.2.8"
+    "wolfy87-eventemitter": "^5.2.8",
+    "webpack-dev-server": "^2.5.1"
   },
   "jest": {
     "roots": [

@@ -892,6 +892,7 @@ class Crossword extends Component {
   }
 
   async saveGrid() {
+    console.log(this.state.grid);
     await this.props.updateIfCurrentGridState({id:this.state.gridId, grid:this.state.grid});
   }
 

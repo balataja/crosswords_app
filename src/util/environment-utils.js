@@ -17,14 +17,13 @@ export const getApiUrl = () => {
     // case 'heroku_build':
     //   return '';
     case 'production':
-      return 'http://api.mkrn-domain.com';
+      return 'https://pacific-savannah-08041.herokuapp.com';
     case 'stage':
-      return 'http://api-stage.mkrn-stage-domain.com';
     case 'test':
-      return 'http://api-test.mkrn-test-domain.com';
     case 'development':
     default:
-      return 'http://localhost:3000';
+      //return 'http://localhost:3000';
+      return 'https://pacific-savannah-08041.herokuapp.com'
   }
 };
 
@@ -36,13 +35,9 @@ export const getApiUrl = () => {
 export const getAppUrl = () => {
   switch (getEnvironment()) {
     case 'production':
-      return 'https://limitless-beyond-75437.herokuapp.com/';
-    // case 'production':
-    //   return 'http://app.mkrn-domain.com';
+      return 'https://limitless-beyond-75437.herokuapp.com';
     case 'stage':
-      return 'http://app-stage.mkrn-stage-domain.com';
     case 'test':
-      return 'http://app-test.mkrn-test-domain.com';
     case 'development':
     default:
       return 'http://localhost:8080';

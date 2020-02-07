@@ -40,6 +40,7 @@ export const getAppUrl = () => {
     case 'test':
     case 'development':
     default:
-      return 'http://localhost:8080';
+      return 'https://limitless-beyond-75437.herokuapp.com';
+      //return 'http://localhost:8080';
   }
 };

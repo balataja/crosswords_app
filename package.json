@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --hot",
-    "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webppack.config.prod.js"
+    "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webpack.config.prod.js"
   },
   "engines": {
     "node": "8.12.0"

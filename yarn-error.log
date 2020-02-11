@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add koa, koa-logger, kcors, koa-bodyparser, http --save
 
 PATH: 
   C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Program Files\Microsoft SQL Server\130\DTS\Binn\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\GitExtensions\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Yarn\bin\;C:\Users\James Balata\AppData\Local\Microsoft\WindowsApps;;C:\Program Files\Microsoft VS Code\bin;C:\Users\James Balata\AppData\Local\Programs\Fiddler;C:\Users\James Balata\AppData\Roaming\npm;C:\Users\James Balata\.dotnet\tools;C:\Users\James Balata\AppData\Local\Microsoft\WindowsApps;C:\Program Files\heroku\bin;C:\Users\James Balata\AppData\Local\Yarn\bin
@@ -14,13 +14,17 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: C:\Users\James Balata\Desktop\crosswords_with_friends\app\package.json: Unexpected token } in JSON at position 707
-      at JSON.parse (<anonymous>)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
-      at <anonymous>
+  Error: https://registry.yarnpkg.com/koa,: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66084:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140727:22)
+      at emitTwo (events.js:126:13)
+      at Request.emit (events.js:214:7)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141699:10)
+      at emitOne (events.js:116:13)
+      at Request.emit (events.js:211:7)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141621:12)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:111:20)
 
 npm manifest: 
   {
@@ -31,7 +35,7 @@ npm manifest:
     "author": "Joshua Anderson Slate",
     "license": "MIT",
     "scripts": {
-      "start": "webpack-dev-server --progress --colors --hot",
+      "start": "export NODE_ENV=production|| set NODE_ENV=production && node index.js",
       "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack"
     },"engines": {
       "node": "8.12.0"
@@ -44,7 +48,7 @@ npm manifest:
       "eslint-plugin-jest": "^20.0.3",
       "eslint-plugin-jsx-a11y": "5.0.1",
       "eslint-plugin-react": "7.1.0",
-      "react-hot-loader": "3.0.0-beta.3",
+      "react-hot-loader": "3.0.0-beta.3"
     },
     "dependencies": {
       "axios": "^0.16.2",

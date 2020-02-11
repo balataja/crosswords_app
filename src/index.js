@@ -26,4 +26,4 @@ ReactDOM.render((
 ), document.getElementById('root'));
 
 // Enable hot relading
-module.hot.accept();
+//module.hot.accept();

@@ -1,17 +1,24 @@
-const polyfill = require('babel-polyfill');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => ({
   entry: [
     'babel-polyfill',
-    path.join(__dirname, './index.js'),
+    './index2.js'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
     filename: 'bundle.js'
+  },
+  devServer: {
+      contentBase: "./build"
   },
   devtool: '#eval-source-map',
   plugins: [
+    new HtmlWebpackPlugin({
+        template: path.resolve('./index.html'),
+      }),
   ],
   node: {
     fs: 'empty',
@@ -26,7 +33,7 @@ module.exports = () => ({
           {
             loader: 'babel-loader',
             options: {
-              babelrc: false,
+              babelrc: true,
               presets: [
                 ['es2015', { modules: false }],
                 'react',

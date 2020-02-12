@@ -21,4 +21,5 @@ const TopLevelRoutes = () => (
   </Switch>
 );
 
-export default TopLevelRoutes;
+//export default TopLevelRoutes;
+module.exports = TopLevelRoutes;

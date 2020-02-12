@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = () => ({
   entry: [
     'babel-polyfill',
-    path.join(__dirname, 'src/index2.js'),
+    path.join(__dirname, './index.js'),
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -13,6 +13,10 @@ module.exports = () => ({
   devtool: '#eval-source-map',
   plugins: [
   ],
+  node: {
+    fs: 'empty',
+    net: 'empty'
+  },
   module: {
     rules: [
       {

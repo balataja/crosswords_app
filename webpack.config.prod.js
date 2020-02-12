@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = () => ({
   entry: [
     'babel-polyfill',
-    path.join(__dirname, 'src/index.js'),
+    path.join(__dirname, 'src/index2.js'),
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -16,7 +16,6 @@ module.exports = () => ({
   module: {
     rules: [
       {
-        test: /\.js$/,
         exclude: /node_modules/,
         include: path.join(__dirname, 'src'),
         use: [
@@ -39,10 +38,5 @@ module.exports = () => ({
         loader: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './src',
-    hot: true,
   },
 });

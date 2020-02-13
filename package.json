@@ -6,6 +6,7 @@
   "author": "Joshua Anderson Slate",
   "license": "MIT",
   "scripts": {
+    "start": "export NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webpack.config.prod.js",
     "dev": "webpack-dev-server --progress --colors --hot",
     "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webpack.config.prod.js"
   },

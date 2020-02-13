@@ -20,7 +20,6 @@ module.exports = () => ({
         template: path.resolve('./index.html'),
       }),
   ],
-  target: "node",
   node: {
     fs: 'empty',
     net: 'empty'

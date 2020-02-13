@@ -11,7 +11,7 @@
     "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webpack.config.prod.js"
   },
   "engines": {
-    "node": "8.12.0"
+    "node": "8.1.4"
   },
   "devDependencies": {
     "eslint": "3.19.0",

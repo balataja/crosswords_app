@@ -1,24 +1,33 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+//const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => ({
+  devtool: 'source-map',
   entry: [
-    'babel-polyfill',
-    path.join(__dirname, 'src/index.js'),
+    path.join(__dirname, 'src/index2.js'),
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/dist/'
   },
 //   devServer: {
 //       contentBase: "./build"
 //   },
   devtool: '#eval-source-map',
-//   plugins: [
-//     new HtmlWebpackPlugin({
-//         template: path.resolve('./index.html'),
-//       }),
-//   ],
+  plugins: [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      compress: {
+        warnings: false
+      }
+    })
+    // new HtmlWebpackPlugin({
+    //     template: path.resolve('./index.html'),
+    //   }),
+  ],
   node: {
     fs: 'empty',
     net: 'empty'

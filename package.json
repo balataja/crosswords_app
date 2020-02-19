@@ -6,12 +6,12 @@
   "author": "Joshua Anderson Slate",
   "license": "MIT",
   "scripts": {
-    "start": "export NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webpack.config.prod.js",
+    "start": "npm-run-all --parallel open:src lint:watch",
     "dev": "webpack-dev-server --progress --colors --hot",
     "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webpack.config.prod.js"
   },
   "engines": {
-    "node": "8.1.4"
+    "node": "12.13.0"
   },
   "devDependencies": {
     "eslint": "3.19.0",

@@ -23,7 +23,7 @@ module.exports = () => ({
       compress: {
         warnings: false
       }
-    })
+    }),
     // new HtmlWebpackPlugin({
     //     template: path.resolve('./index.html'),
     //   }),

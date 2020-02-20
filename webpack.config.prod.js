@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack')
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => ({
   devtool: 'source-map',
@@ -23,10 +23,11 @@ module.exports = () => ({
       compress: {
         warnings: false
       }
-    })
-    // new HtmlWebpackPlugin({
-    //     template: path.resolve('./index.html'),
-    //   }),
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: path.resolve(__dirname, 'src/index.html'),
+    }),
   ],
   node: {
     fs: 'empty',
@@ -35,6 +36,7 @@ module.exports = () => ({
   module: {
     rules: [
       {
+        test: /\.js$/,
         exclude: /node_modules/,
         include: path.join(__dirname, 'src'),
         use: [

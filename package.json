@@ -11,7 +11,7 @@
     "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webpack.config.prod.js"
   },
   "engines": {
-    "node": "12.13.0"
+    "node": "8.10.0"
   },
   "devDependencies": {
     "eslint": "3.19.0",
@@ -70,7 +70,8 @@
     "universal-cookie": "^2.0.8",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.1",
-    "wolfy87-eventemitter": "^5.2.8"
+    "wolfy87-eventemitter": "^5.2.8",
+    "node-sass": "^4.5.3"
   },
   "jest": {
     "roots": [

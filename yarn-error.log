@@ -8,7 +8,7 @@ Yarn version:
   1.22.0
 
 Node version: 
-  8.12.0
+  12.13.0
 
 Platform: 
   win32 x64
@@ -38,7 +38,7 @@ npm manifest:
       "start": "export NODE_ENV=production|| set NODE_ENV=production && node index.js",
       "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack"
     },"engines": {
-      "node": "8.12.0"
+      "node": "12.13.0"
     },
     "devDependencies": {
       "eslint": "3.19.0",

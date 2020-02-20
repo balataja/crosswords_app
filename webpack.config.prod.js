@@ -5,7 +5,7 @@ const webpack = require('webpack')
 module.exports = () => ({
   devtool: 'source-map',
   entry: [
-    path.join(__dirname, 'src/index2.js'),
+    path.join(__dirname, 'src/index.js'),
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -23,7 +23,7 @@ module.exports = () => ({
       compress: {
         warnings: false
       }
-    }),
+    })
     // new HtmlWebpackPlugin({
     //     template: path.resolve('./index.html'),
     //   }),

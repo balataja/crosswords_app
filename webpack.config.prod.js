@@ -29,6 +29,7 @@ module.exports = () => ({
       template: path.resolve(__dirname, 'src/index.html'),
     }),
   ],
+  target: 'node',
   node: {
     fs: 'empty',
     net: 'empty'

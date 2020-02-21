@@ -8,11 +8,11 @@ const app = express();
 //app.use(express.static(path.resolve(__dirname)));
 //app.use(express.static(path.resolve(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'dist')));
-//app.use(express.static('src'));
+app.use(express.static(path.join(__dirname, 'src')));
 
 // send the user to index html page inspite of the url
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile('index.html');
 });
 
 app.listen(port);

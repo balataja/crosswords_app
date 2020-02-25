@@ -51,6 +51,7 @@
     "koa-static": "^5.0.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "node-sass": "^4.5.3",
     "normalize.css": "^7.0.0",
     "path": "^0.12.7",
     "prop-types": "^15.5.10",
@@ -65,12 +66,12 @@
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "sass-mq": "^5.0.1",
+    "socket.io": "^2.3.0",
     "style-loader": "^0.18.2",
     "svg-inline-loader": "^0.8.0",
     "universal-cookie": "^2.0.8",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.1",
-    "wolfy87-eventemitter": "^5.2.8",
-    "node-sass": "^4.5.3"
+    "wolfy87-eventemitter": "^5.2.8"
   }
 }

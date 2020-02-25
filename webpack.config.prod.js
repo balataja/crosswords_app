@@ -29,10 +29,12 @@ module.exports = () => ({
       template: path.resolve(__dirname, 'src/index.html'),
     }),
   ],
-  target: 'node',
+  //mode: 'production',
+  //target: 'node',
   node: {
     fs: 'empty',
-    net: 'empty'
+    net: 'empty',
+    global: true
   },
   module: {
     rules: [

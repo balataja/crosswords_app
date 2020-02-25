@@ -9,7 +9,7 @@ const app = express();
 //app.use(express.static(path.resolve(__dirname, 'build')));
 app.use(express.static(path.resolve('dist')));
 //app.use(express.static(path.join(__dirname, 'src')));
-
+console.log(process.env.NODE_ENV);
 // send the user to index html page inspite of the url
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('dist', 'index.html'));

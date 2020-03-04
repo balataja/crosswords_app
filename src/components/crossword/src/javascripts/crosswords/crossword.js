@@ -842,7 +842,7 @@ class Crossword extends Component {
         });
 
         this.saveGrid();
-        // socket.emit('clue_answered', {roomNumber: this.props.gameId, playerNumber: this.state.playerNumber});
+        socket.emit('clue_answered', {roomNumber: this.props.gameId, playerNumber: this.state.playerNumber});
       } else {      
         this.setState({
           grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {

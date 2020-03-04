@@ -46,7 +46,7 @@ import '../../stylesheets/notifications.scss';
 import { getAppUrl, getApiUrl } from '../../../../../util/environment-utils';
 
 //const socket = io('http://localhost:3000');
-const socket = io(`${getAppUrl()}`);
+const socket = io(`${getApiUrl()}`);
 
 class Crossword extends Component {
   static propTypes = {
@@ -59,7 +59,7 @@ class Crossword extends Component {
     this.columns = dimensions.cols;
     this.rows = dimensions.rows;
     this.clueMap = buildClueMap(this.props.data.entries);
-    
+    console.log("socket will be at: " + `${getAppUrl()}`);
     const defaultGridState = buildNewGrid(
       dimensions.rows,
       dimensions.cols,

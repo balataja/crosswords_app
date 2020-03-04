@@ -46,7 +46,7 @@ import '../../stylesheets/notifications.scss';
 import { getAppUrl, getApiUrl } from '../../../../../util/environment-utils';
 
 //const socket = io('http://localhost:3000');
-const socket = io(`${getApiUrl()}`);
+const socket = io(`${getAppUrl()}`);
 
 class Crossword extends Component {
   static propTypes = {

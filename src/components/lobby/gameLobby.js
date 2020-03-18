@@ -60,19 +60,21 @@ class GameLobby extends Component {
     ];
       
     async componentDidMount() {
-        const user = await this.props.getAuthenticatedUser();
-        var userGames = await this.props.getGames(user.id);
+        var user = await this.props.getAuthenticatedUser();
+        console.log(user);
+        //var userGames = await this.props.getGames(user.user._id);
+        console.log(user.user.games);
         this.setState({
-            userGames: userGames,
-            user: user,
+            user: user.user,
         });
     }
 
     async createGame (formProps) {
-        var crosswordRes = await this.props.getRandomCrossword(Math.floor(Math.random() * Math.floor(1000)));
-        const num = Math.floor(Math.random() * crosswordRes.length);
+        var crosswordRes = await this.props.getRandomCrossword();//Math.floor(Math.random() * Math.floor(1000)));
+        //const num = Math.floor(Math.random() * crosswordRes.length);
+        console.log(crosswordRes);
         this.setState({
-            crossword: crosswordRes[num]
+            crossword: crosswordRes[0]
         });
 
         const dimensions = this.state.crossword.dimensions;
@@ -98,6 +100,8 @@ class GameLobby extends Component {
         }
 
         var gameRes = await this.props.addGame(game);
+        console.log(gameRes);
+        await this.props.continueGame(gameRes._id);
     }
 
     async continueGame (gameId) {
@@ -138,7 +142,7 @@ class GameLobby extends Component {
 
         const data = {
             gameId: formProps.gameId,
-            userId: this.props.user.id,
+            userId: this.state.user.id,
         }
         await this.props.joinGame(data)
         await this.continueGame(formProps.gameId);
@@ -146,9 +150,14 @@ class GameLobby extends Component {
 
     render ()  {
         const { handleSubmit, errors, message, loading } = this.props;
+
+        if (this.state.user.games !== undefined) {
+
+        }
+
         return (
             <div>
-                {this.state.userGames.map((game, i) => 
+                {this.state.user.games !== undefined && this.state.user.games.map((game, i) => 
                     <div key={i}>
                         <GenericForm
                             onSubmit={handleSubmit(() => this.continueGame(game.gameId))}

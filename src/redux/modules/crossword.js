@@ -8,6 +8,7 @@ const typeBase = `${APP_NAMESPACE}/${CROSSWORD_ENDPOINT_BASE}/`;
 // Constants
 export const GET_CROSSWORD = `${typeBase}GET_CROSSWORD`;
 export const GET_CROSSWORDS = `${typeBase}GET_CROSSWORDS`;
+export const GET_RANDOM_CROSSWORD = `${typeBase}GET_RANDOM_CROSSWORD`;
 
 // Actions
 
@@ -48,9 +49,9 @@ export const getCrosswords = () => async (dispatch) => {
  */
 export const getRandomCrossword = (id) => async (dispatch) => {
   try {
-    const response = await get(dispatch, GET_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/get-random-crossword`, true);
+    const response = await get(dispatch, GET_RANDOM_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/get-random-crossword`, true);
     return Promise.resolve(response);
   } catch (err) {
-    await handleError(dispatch, err, GET_CROSSWORD);
+    await handleError(dispatch, err, GET_RANDOM_CROSSWORD);
   }
 };

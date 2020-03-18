@@ -64,7 +64,7 @@ class GameLobby extends Component {
         var userGames = await this.props.getGames(user.id);
         this.setState({
             userGames: userGames,
-            user: temp,
+            user: user,
         });
     }
 

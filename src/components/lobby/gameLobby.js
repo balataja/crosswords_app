@@ -69,7 +69,7 @@ class GameLobby extends Component {
     }
 
     async createGame (formProps) {
-        var crosswordRes = await this.props.getCrosswords(formProps);
+        var crosswordRes = await this.props.getCrossword(Math.random(1000));
         const num = Math.floor(Math.random() * crosswordRes.length);
         this.setState({
             crossword: crosswordRes[num]

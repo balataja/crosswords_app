@@ -39,3 +39,18 @@ export const getCrosswords = () => async (dispatch) => {
     await handleError(dispatch, err, GET_CROSSWORDS);
   }
 };
+
+/**
+ * getCrossword  - Fetches crossword from API, given id
+ *
+ * @param {String} id User's id for lookup
+ * @returns {Promise}
+ */
+export const getRandomCrossword = (id) => async (dispatch) => {
+  try {
+    const response = await get(dispatch, GET_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/get-random-crossword`, true);
+    return Promise.resolve(response);
+  } catch (err) {
+    await handleError(dispatch, err, GET_CROSSWORD);
+  }
+};

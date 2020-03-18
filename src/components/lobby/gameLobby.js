@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Link, useHistory, withRouter } from 'react-router-dom';
 import GenericForm from '../form-fields/generic-form';
-import { getCrossword, getCrosswords } from '../../redux/modules/crossword';
+import { getCrossword, getCrosswords, getRandomCrossword } from '../../redux/modules/crossword';
 import { getGridState, initializeGridState } from '../../redux/modules/gridState';
 import { getGame, getGames, addGame, joinGame } from '../../redux/modules/game';
 import { getUserGames } from '../../redux/modules/user';
@@ -69,7 +69,7 @@ class GameLobby extends Component {
     }
 
     async createGame (formProps) {
-        var crosswordRes = await this.props.getCrossword(Math.random(1000));
+        var crosswordRes = await this.props.getRandomCrossword(Math.floor(Math.random() * Math.floor(1000)));
         const num = Math.floor(Math.random() * crosswordRes.length);
         this.setState({
             crossword: crosswordRes[num]
@@ -191,4 +191,4 @@ const mapStateToProps = ({ user, authentication }) => ({
     authenticated: authentication.authenticated,
   });
   
-  export default withRouter(connect(mapStateToProps, { getAuthenticatedUser, getUserGames, getCrosswords, getCrossword, getGame, getGames, addGame, joinGame, getGridState, initializeGridState })(form(GameLobby)));
+  export default withRouter(connect(mapStateToProps, { getAuthenticatedUser, getUserGames, getCrosswords, getCrossword, getRandomCrossword, getGame, getGames, addGame, joinGame, getGridState, initializeGridState })(form(GameLobby)));

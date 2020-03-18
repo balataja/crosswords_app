@@ -11,6 +11,7 @@ import { getUserGames } from '../../redux/modules/user';
 import { errorPropTypes } from '../../util/proptype-utils';
 import { RESET_PASSWORD } from '../../redux/modules/authentication';
 import TextInput from '../form-fields/text-input';
+import { getAuthenticatedUser } from '../../redux/modules/authentication';
 import {
     buildClueMap,
     buildNewGrid,
@@ -29,6 +30,10 @@ class GameLobby extends Component {
         errors: errorPropTypes,
         message: PropTypes.string,
         loading: PropTypes.bool,
+        user: PropTypes.shape({
+            firstName: PropTypes.string,
+        }),
+        authenticated: PropTypes.bool,
     };
 
     constructor(props) {
@@ -41,7 +46,9 @@ class GameLobby extends Component {
                 isActive:
                 true
                 }],
-            allGames: [],
+            user: {
+                id: 0
+            }
          };
         this.createGame = this.createGame.bind(this);
         this.continueGame = this.continueGame.bind(this);
@@ -53,11 +60,11 @@ class GameLobby extends Component {
     ];
       
     async componentDidMount() {
-        var allGames = await this.props.getGames(this.props.location.state.user.id);
-        var userGames = this.props.location.state.user.games;
+        const user = await this.props.getAuthenticatedUser();
+        var userGames = await this.props.getGames(user.id);
         this.setState({
             userGames: userGames,
-            allGames: allGames,
+            user: temp,
         });
     }
 
@@ -87,7 +94,7 @@ class GameLobby extends Component {
             name: this.state.crossword.name,
             gridStateId: this.state.gridStateId,
             crosswordId: this.state.crossword._id,
-            userId: this.props.location.state.user.id,
+            userId: this.state.user.id,
         }
 
         var gameRes = await this.props.addGame(game);
@@ -103,7 +110,7 @@ class GameLobby extends Component {
                     gridId: game.gridStateId, 
                     crossword: cross, 
                     players: game.players, 
-                    userId: this.props.location.state.user.id,
+                    userId: this.state.user.id,
                     gameId: gameId
                 }
             }
@@ -113,7 +120,7 @@ class GameLobby extends Component {
     async joinGame (game) {
         const data = {
             gameId: game._id,
-            userId: this.props.location.state.user.id,
+            userId: this.state.user.id,
         }
         var joinedGame = await this.props.joinGame(data);
         console.log('joining game..');
@@ -122,21 +129,19 @@ class GameLobby extends Component {
     }
 
     async joinSpecificGame (formProps) {
-        console.log(formProps.gameId);
-        var gameToJoin = await this.props.getGame(formProps.gameId);
-        console.log(gameToJoin);
-        if (gameToJoin === undefined) {
-            return;
-        } 
+        // console.log(formProps.gameId);
+        // var gameToJoin = await this.props.getGame(formProps.gameId);
+        // console.log(gameToJoin);
+        // if (gameToJoin === undefined) {
+        //     return;
+        // } 
 
         const data = {
             gameId: formProps.gameId,
-            userId: this.props.location.state.user.id,
+            userId: this.props.user.id,
         }
         await this.props.joinGame(data)
-
         await this.continueGame(formProps.gameId);
-
     }
 
     render ()  {
@@ -166,25 +171,6 @@ class GameLobby extends Component {
                     submitText="Create New Random Game"
                 />
                 <br />
-                {/* <p>
-                    All other games that are joinable:
-                </p>
-
-                {this.state.allGames.map((game, i) => 
-                    <div key={i}>
-                        <p>Name: {game.createdDate}</p>
-                        <p>Active: {game.isActive}</p>
-
-                        <GenericForm key={i}
-                            onSubmit={handleSubmit(() => this.joinGame(game))}
-                            errors={errors}
-                            message={message}
-                            //formSpec={GameLobby.formSpec}
-                            submitText="Join Game"
-                        />
-                        <br />
-                    </div>
-                )} */}
 
                 <GenericForm
                     onSubmit={handleSubmit(this.joinSpecificGame)}
@@ -197,11 +183,12 @@ class GameLobby extends Component {
         )
     }
 }
-  
-const mapStateToProps = ({ authentication }) => ({
+
+const mapStateToProps = ({ user, authentication }) => ({
     errors: authentication.errors[RESET_PASSWORD],
     message: authentication.messages[RESET_PASSWORD],
     loading: authentication.loading[RESET_PASSWORD],
+    authenticated: authentication.authenticated,
   });
   
-  export default withRouter(connect(mapStateToProps, { getUserGames, getCrosswords, getCrossword, getGame, getGames, addGame, joinGame, getGridState, initializeGridState })(form(GameLobby)));
+  export default withRouter(connect(mapStateToProps, { getAuthenticatedUser, getUserGames, getCrosswords, getCrossword, getGame, getGames, addGame, joinGame, getGridState, initializeGridState })(form(GameLobby)));

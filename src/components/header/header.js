@@ -30,11 +30,11 @@ class Header extends Component {
         link: 'lobby',
         authenticated: true,
       },
-      {
-        name: 'Dashboard',
-        link: 'dashboard',
-        authenticated: true,
-      },
+      // {
+      //   name: 'Dashboard',
+      //   link: 'dashboard',
+      //   authenticated: true,
+      // },
       {
         name: (user && user.firstName) || 'Profile',
         link: 'profile',

@@ -59,7 +59,7 @@ class Crossword extends Component {
     this.columns = dimensions.cols;
     this.rows = dimensions.rows;
     this.clueMap = buildClueMap(this.props.data.entries);
-    console.log("socket will be at: " + `${getAppUrl()}`);
+    console.log("socket will be at: " + `${getApiUrl()}`);
     const defaultGridState = buildNewGrid(
       dimensions.rows,
       dimensions.cols,

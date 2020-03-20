@@ -107,6 +107,14 @@ class GameLobby extends Component {
     async continueGame (gameId) {
         var game = await this.props.getGame(gameId);
         var cross = await this.props.getCrossword(game.crosswordId);
+        var uid = this.state.user.id;
+        console.log("uid: " + uid);
+        console.log(game.players);
+        // const playerNumber = game.players.filter(function (player) {
+        //     if ( player.userId == userId) {
+        //         console.log("player number: " + player);
+        //     }
+        // });
         this.props.history.push(
             {
                 pathname:'/game', 
@@ -114,7 +122,7 @@ class GameLobby extends Component {
                     gridId: game.gridStateId, 
                     crossword: cross, 
                     players: game.players, 
-                    userId: this.state.user.id,
+                    userId: uid,//this.state.user.id,
                     gameId: gameId
                 }
             }

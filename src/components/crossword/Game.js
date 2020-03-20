@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Crossword from './src/javascripts/crosswords/crossword';
+import SocketContext from '../../util/socket-context'
 
 class Game extends Component {
     constructor(props) {
@@ -108,7 +109,9 @@ class Game extends Component {
             return player.userId == userId;
         });
         return (
-            <div>
+          <SocketContext.Consumer>
+
+            {socket => 
                 <Crossword 
                     //data={this.state.gameData}
                     //data={this.state.data2}
@@ -116,8 +119,10 @@ class Game extends Component {
                     gridId={this.props.location.state.gridId}
                     playerNumber={playerNumber[0].playerNumber}
                     gameId={this.props.location.state.gameId}
+                    socket={socket}
                 />
-            </div>
+            }
+          </SocketContext.Consumer>
         )
     }
 }

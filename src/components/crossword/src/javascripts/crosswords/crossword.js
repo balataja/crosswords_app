@@ -37,7 +37,7 @@ import { keycodes } from './keycodes';
 //import { saveGridState, loadGridState } from './persistence';
 import { getGridState, updateIfCurrentGridState } from '../../../../../redux/modules/gridState';
 import { classNames } from './classNames';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
@@ -46,7 +46,7 @@ import '../../stylesheets/notifications.scss';
 import { getAppUrl, getApiUrl } from '../../../../../util/environment-utils';
 
 //const socket = io('http://localhost:3000');
-const socket = io(`${getApiUrl()}`);
+//const socket = io(`${getApiUrl()}`);
 
 class Crossword extends Component {
   static propTypes = {
@@ -74,21 +74,22 @@ class Crossword extends Component {
       showAnagramHelper: false,
       playerNumber: this.props.playerNumber,
     };
-
-    socket.on('connect', function() {
-      console.log('client connecting to game..' + this.props.gameId)
-      socket.emit('room', this.props.gameId)
-    }.bind(this));
   }
 
   async componentDidMount() {
+
+    //socket.on('connect', function() {
+      console.log('client connecting to game..' + this.props.gameId)
+      this.props.socket.emit('room', this.props.gameId)
+    //}.bind(this));
+
     var grid = await this.props.getGridState(this.props.gridId);
     this.setState({
       grid: grid.entries
     });
 
     // Update all other users upon correct clue
-    socket.on('update_other_users', async function (msg) { 
+    this.props.socket.on('update_other_users', async function (msg) { 
       console.log('from crossword component: ' + msg); 
       var grid = await this.props.getGridState(this.props.gridId);
       this.setState({
@@ -96,14 +97,14 @@ class Crossword extends Component {
       });
     }.bind(this));
 
-    socket.on('player_disconnected', function (msg) {
+    this.props.socket.on('player_disconnected', function (msg) {
       console.log( 'disconnected from server' );
       NotificationManager.error('Player Disconnected', msg);
       //window.setTimeout( 'app.connect()', 2000 );
     });
 
-    socket.emit('player_joined_game', { roomNumber: this.props.gameId, playerNumber: this.state.playerNumber });
-    socket.on('other_player_joined_game', function(msg) {
+    this.props.socket.emit('player_joined_game', { roomNumber: this.props.gameId, playerNumber: this.state.playerNumber });
+    this.props.socket.on('other_player_joined_game', function(msg) {
       console.log('player joined game: ' + msg);
       NotificationManager.success('Player Joined', msg);
     }.bind(this));
@@ -152,10 +153,10 @@ class Crossword extends Component {
   }
 
   componentWillUnmount() {
-    socket.emit('player_left_game', { roomNumber: this.props.gameId, playerNumber: this.state.playerNumber });
-    socket.off('update_other_users');
-    socket.off('player_disconnected');
-    socket.close();
+    this.props.socket.emit('player_left_game', { roomNumber: this.props.gameId, playerNumber: this.state.playerNumber });
+    this.props.socket.off('update_other_users');
+    this.props.socket.off('player_disconnected');
+    //this.props.socket.close();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -842,7 +843,7 @@ class Crossword extends Component {
         });
 
         this.saveGrid();
-        socket.emit('clue_answered', {roomNumber: this.props.gameId, playerNumber: this.state.playerNumber});
+        this.props.socket.emit('clue_answered', {roomNumber: this.props.gameId, playerNumber: this.state.playerNumber});
       } else {      
         this.setState({
           grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {

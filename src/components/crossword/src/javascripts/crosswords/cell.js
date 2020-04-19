@@ -69,6 +69,8 @@ class Cell extends Component {
             'crossword__cell--correct-p2': this.props.isCorrect && this.props.answeredBy == 2,
             'crossword__cell--correct-p3': this.props.isCorrect && this.props.answeredBy == 3,
             'crossword__cell--correct-p4': this.props.isCorrect && this.props.answeredBy == 4,
+            'crossword__cell--correct-p5': this.props.isCorrect && this.props.answeredBy == 5,
+            'crossword__cell--correct-p6': this.props.isCorrect && this.props.answeredBy == 6,
             //highlifeColor: this.props.isCorrect,
             // 'crossword__cell--focussed': this.props.isFocussed,
             'crossword__cell--highlighted': this.props.isHighlighted && !this.props.isCorrect,

@@ -47,6 +47,18 @@
         fill: $xword-correct-background-colour-p4;
     }
 }
+.crossword__cell--correct-p5 {
+    &,
+    .crossword__grid--correct & {
+        fill: $xword-correct-background-colour-p5;
+    }
+}
+.crossword__cell--correct-p6 {
+    &,
+    .crossword__grid--correct & {
+        fill: $xword-correct-background-colour-p6;
+    }
+}
 
 // .crossword__cell--correct-and-highlighted {
 //     &,

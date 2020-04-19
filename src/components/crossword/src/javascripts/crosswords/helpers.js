@@ -115,6 +115,22 @@ const cellsForEntry = entry => (isAcross(entry)
 
 const checkClueHasBeenAnswered = (grid, entry) => cellsForEntry(entry).every(position => /^.$/.test(grid[position.x][position.y].value));
 
+const checkClueHasBeenFullyLockedIn = (grid, entry) => cellsForEntry(entry).every(position => /^.$/.test(grid[position.x][position.y].isCorrect));
+
+const shouldCheckClue = (grid, entry) => {
+   const clueHasBeenAnswered = checkClueHasBeenAnswered(grid, entry);
+
+   if (clueHasBeenAnswered) {
+    const clueHasBeenFullyLockedIn = checkClueHasBeenFullyLockedIn(grid, entry);
+
+    if (!clueHasBeenFullyLockedIn) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 const otherDirection = direction => (direction === 'across' ? 'down' : 'across');
 
 const cellsForClue = (entries, clue) => {
@@ -348,4 +364,5 @@ export {
   cluesAreInGroup,
   checkClueHasBeenAnswered,
   getClearableCellsForClue,
+  shouldCheckClue,
 };

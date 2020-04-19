@@ -32,6 +32,7 @@ import {
   checkClueHasBeenAnswered,
   buildSeparatorMap,
   cellsForEntry,
+  shouldCheckClue,
 } from './helpers';
 import { keycodes } from './keycodes';
 //import { saveGridState, loadGridState } from './persistence';
@@ -257,105 +258,105 @@ class Crossword extends Component {
   }
 
   onCheat() {
-    this.allHighlightedClues().forEach(clue => this.cheat(clue));
-    this.saveGrid();
+  //   this.allHighlightedClues().forEach(clue => this.cheat(clue));
+  //   this.saveGrid();
     //socket.emit('checking_clue', 'checking...');
   }
 
   onCheck() {
-    // 'Check this' checks single and grouped clues
-    this.allHighlightedClues().forEach(clue => this.check(clue));
-    this.saveGrid();
-    //socket.emit('checking_clue', 'checking...');
+  //   // 'Check this' checks single and grouped clues
+  //   this.allHighlightedClues().forEach(clue => this.check(clue));
+  //   this.saveGrid();
+  //   //socket.emit('checking_clue', 'checking...');
   }
 
   onSolution() {
-    this.props.data.entries.forEach(clue => this.cheat(clue));
-    //this.saveGrid();
+  //   this.props.data.entries.forEach(clue => this.cheat(clue));
+  //   //this.saveGrid();
   }
 
   onCheckAll() {
-    this.props.data.entries.forEach(clue => this.check(clue));
-    //this.saveGrid();
+  //   this.props.data.entries.forEach(clue => this.check(clue));
+  //   //this.saveGrid();
   }
 
   onClearAll() {
-    this.setState({
-      grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
-        const previousValue = cell.value;
-        cell.value = '';
-        cell.answeredBy = 0;
-        this.props.onMove({
-          x: gridX, y: gridY, value: '', previousValue,
-        });
-        return cell;
-      }),
-    });
+  //   this.setState({
+  //     grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
+  //       const previousValue = cell.value;
+  //       cell.value = '';
+  //       cell.answeredBy = 0;
+  //       this.props.onMove({
+  //         x: gridX, y: gridY, value: '', previousValue,
+  //       });
+  //       return cell;
+  //     }),
+  //   });
 
-    //this.saveGrid();
+  //   //this.saveGrid();
   }
 
   onClearSingle() {
-    const clueInFocus = this.clueInFocus();
+  //   const clueInFocus = this.clueInFocus();
 
-    if (clueInFocus) {
-      // Merge arrays of cells from all highlighted clues
-      // const cellsInFocus = _.flatten(_.map(this.allHighlightedClues(), helpers.cellsForEntry, this));
-      const cellsInFocus = getClearableCellsForClue(
-        this.state.grid,
-        this.clueMap,
-        this.props.data.entries,
-        clueInFocus,
-      );
+  //   if (clueInFocus) {
+  //     // Merge arrays of cells from all highlighted clues
+  //     // const cellsInFocus = _.flatten(_.map(this.allHighlightedClues(), helpers.cellsForEntry, this));
+  //     const cellsInFocus = getClearableCellsForClue(
+  //       this.state.grid,
+  //       this.clueMap,
+  //       this.props.data.entries,
+  //       clueInFocus,
+  //     );
 
-      this.setState({
-        grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
-          if (
-            cellsInFocus.some(c => c.x === gridX && c.y === gridY)
-          ) {
-            const previousValue = cell.value;
-            cell.value = '';
-            cell.answeredBy = 0;
-            this.props.onMove({
-              x: gridX, y: gridY, value: '', previousValue,
-            });
-          }
-          return cell;
-        }),
-      });
+  //     this.setState({
+  //       grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
+  //         if (
+  //           cellsInFocus.some(c => c.x === gridX && c.y === gridY)
+  //         ) {
+  //           const previousValue = cell.value;
+  //           cell.value = '';
+  //           cell.answeredBy = 0;
+  //           this.props.onMove({
+  //             x: gridX, y: gridY, value: '', previousValue,
+  //           });
+  //         }
+  //         return cell;
+  //       }),
+  //     });
 
-      //this.saveGrid();
-    }
+  //     //this.saveGrid();
+  //   }
   }
 
   onToggleAnagramHelper() {
-    // only show anagram helper if a clue is active
-    if (!this.state.showAnagramHelper) {
-      if (this.clueInFocus()) {
-        this.setState({
-          showAnagramHelper: true,
-        });
-      }
-    } else {
-      this.setState({
-        showAnagramHelper: false,
-      });
-    }
+  //   // only show anagram helper if a clue is active
+  //   if (!this.state.showAnagramHelper) {
+  //     if (this.clueInFocus()) {
+  //       this.setState({
+  //         showAnagramHelper: true,
+  //       });
+  //     }
+  //   } else {
+  //     this.setState({
+  //       showAnagramHelper: false,
+  //     });
+  //   }
   }
 
   onClickHiddenInput(event) {
-    const focussed = this.state.cellInFocus;
+  //   const focussed = this.state.cellInFocus;
 
-    if (focussed) {
-      this.onSelect(focussed.x, focussed.y);
-    }
+  //   if (focussed) {
+  //     this.onSelect(focussed.x, focussed.y);
+  //   }
 
-    /* We need to handle touch seperately as touching an input on iPhone does not fire the
-         click event - listen for a touchStart and preventDefault to avoid calling onSelect twice on
-         devices that fire click AND touch events. The click event doesn't fire only when the input is already focused */
-    if (event.type === 'touchstart') {
-      event.preventDefault();
-    }
+  //   /* We need to handle touch seperately as touching an input on iPhone does not fire the
+  //        click event - listen for a touchStart and preventDefault to avoid calling onSelect twice on
+  //        devices that fire click AND touch events. The click event doesn't fire only when the input is already focused */
+  //   if (event.type === 'touchstart') {
+  //     event.preventDefault();
+  //   }
   }
 
   setGridHeight() {
@@ -428,11 +429,19 @@ class Crossword extends Component {
     const characterUppercase = character.toUpperCase();
     const cell = this.state.cellInFocus;
     if (
-      /[A-Za-zÀ-ÿ0-9]/.test(characterUppercase)
+      /[A-Z]/.test(characterUppercase)
             && characterUppercase.length === 1
             && cell
     ) {
       this.setCellValue(cell.x, cell.y, characterUppercase);
+
+      const clue = this.clueInFocus();
+      if (shouldCheckClue(this.state.grid, clue)) {
+        console.log('clue should be checked');
+        // James ToDo: If player has entered whole answer into currently focused clue, then check
+        this.check(clue);
+      }
+
       //this.saveGrid();
       this.focusNext();
     }
@@ -579,7 +588,6 @@ class Crossword extends Component {
 
     if (cell && clue) {
       if (isLastCellInClue(cell, clue)) {
-        this.check(clue);
         const newClue = getNextClueInGroup(
           this.props.data.entries,
           clue,
@@ -812,6 +820,7 @@ class Crossword extends Component {
   check(entry) {
     const cells = cellsForEntry(entry);
 
+    // James ToDo: should only call check() if all cells have been filled out for clue
     if (entry.solution) {
       let badCells = zip(cells, entry.solution.split(''))
         .filter((cellAndSolution) => {
@@ -823,14 +832,16 @@ class Crossword extends Component {
           );
         })
         .map(cellAndSolution => cellAndSolution[0]);
-      
+
+      console.log(entry);
+      console.log(cells);
+
       if (badCells.length === 0) {
+        // James ToDo: some cells that are empty are getting set with isCorrect
         console.log('no bad cells!')
         this.setState({
           grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
-            if (
-              cells.some(c => c.x === gridX && c.y === gridY)
-            ) {
+            if (cells.some(c => c.x === gridX && c.y === gridY)) {
               const previousValue = cell.isCorrect;
               cell.isCorrect = true;
               this.props.onMove({
@@ -844,7 +855,8 @@ class Crossword extends Component {
 
         this.saveGrid();
         this.props.socket.emit('clue_answered', {roomNumber: this.props.gameId, playerNumber: this.state.playerNumber});
-      } else {      
+      } else {
+        // James ToDo: leave bad answers in game, but don't highlight or lock them in      
         this.setState({
           grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
             if (

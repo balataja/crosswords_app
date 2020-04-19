@@ -220,7 +220,6 @@ class Crossword extends Component {
     ) {
       /** User has clicked again on the highlighted cell, meaning we ought to swap direction */
       newDirection = otherDirection(this.state.directionOfEntry);
-
       if (clue[newDirection]) {
         this.focusClue(x, y, newDirection);
       }
@@ -345,18 +344,18 @@ class Crossword extends Component {
   }
 
   onClickHiddenInput(event) {
-  //   const focussed = this.state.cellInFocus;
+    const focussed = this.state.cellInFocus;
 
-  //   if (focussed) {
-  //     this.onSelect(focussed.x, focussed.y);
-  //   }
+    if (focussed) {
+      this.onSelect(focussed.x, focussed.y);
+    }
 
-  //   /* We need to handle touch seperately as touching an input on iPhone does not fire the
-  //        click event - listen for a touchStart and preventDefault to avoid calling onSelect twice on
-  //        devices that fire click AND touch events. The click event doesn't fire only when the input is already focused */
-  //   if (event.type === 'touchstart') {
-  //     event.preventDefault();
-  //   }
+    /* We need to handle touch seperately as touching an input on iPhone does not fire the
+         click event - listen for a touchStart and preventDefault to avoid calling onSelect twice on
+         devices that fire click AND touch events. The click event doesn't fire only when the input is already focused */
+    if (event.type === 'touchstart') {
+      event.preventDefault();
+    }
   }
 
   setGridHeight() {

@@ -389,7 +389,8 @@ class Crossword extends Component {
   setCellValue(x, y, value, triggerOnMoveCallback = true) {
     this.setState({
       grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
-        if (gridX === x && gridY === y) {
+        if (gridX === x && gridY === y && !cell.isCorrect) {
+          console.log('setting cell value: X:'+ gridX + ', Y:' + gridY)
           const previousValue = cell.value;
           cell.value = value;
           cell.isError = false;
@@ -428,6 +429,7 @@ class Crossword extends Component {
   insertCharacter(character) {
     const characterUppercase = character.toUpperCase();
     const cell = this.state.cellInFocus;
+
     if (
       /[A-Z]/.test(characterUppercase)
             && characterUppercase.length === 1

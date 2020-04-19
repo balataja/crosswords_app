@@ -27,7 +27,7 @@ class Header extends Component {
     const links = [
       {
         name: 'Games',
-        link: 'lobby',
+        link: '/lobby',
         authenticated: true,
       },
       // {
@@ -37,7 +37,7 @@ class Header extends Component {
       // },
       {
         name: (user && user.firstName) || 'Profile',
-        link: 'profile',
+        link: '/profile',
         authenticated: true,
       },
       {
@@ -47,12 +47,12 @@ class Header extends Component {
       },
       {
         name: 'Sign in',
-        link: 'login',
+        link: '/login',
         authenticated: false,
       },
       {
         name: 'Register',
-        link: 'register',
+        link: '/register',
         authenticated: false,
       },
     ];

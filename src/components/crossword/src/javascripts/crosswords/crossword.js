@@ -708,11 +708,11 @@ class Crossword extends Component {
       //}
 
       // Side effect
-      window.history.replaceState(
-        undefined,
-        document.title,
-        `#${clue.id}`,
-      );
+      // window.history.replaceState(
+      //   undefined,
+      //   document.title,
+      //   `#${clue.id}`,
+      // );
 
       const cell = this.state.grid[x][y];
       if (cell.isCorrect) {

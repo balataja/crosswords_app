@@ -35,12 +35,12 @@ export const getApiUrl = () => {
 export const getAppUrl = () => {
   switch (getEnvironment()) {
     case 'production':
-      return 'https://limitless-beyond-75437.herokuapp.com';
+      return 'https://crosswordswithfriends.herokuapp.com';
     case 'stage':
     case 'test':
     case 'development':
     default:
-      return 'https://limitless-beyond-75437.herokuapp.com';
+      return 'https://crosswordswithfriends.herokuapp.com';
       //return 'http://localhost:8080';
   }
 };

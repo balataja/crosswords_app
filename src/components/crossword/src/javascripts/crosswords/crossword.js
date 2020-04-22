@@ -549,36 +549,36 @@ class Crossword extends Component {
       } else if (this.isAcross()) {
         // ToDo: skip cells that are correct --> should work
         const nextCell = this.state.grid[cell.x - 1][cell.y];
-        if (nextCell.isCorrect) {
-          let x = cell.x - 1;
-          let y = cell.y;
-          this.setState({
-            grid: this.state.grid,
-            cellInFocus: {
-              x,
-              y,
-            },
-            directionOfEntry: 'across',
-          }, this.focusPrevious);
-        } else {
+        // if (nextCell.isCorrect) {
+        //   let x = cell.x - 1;
+        //   let y = cell.y;
+        //   this.setState({
+        //     grid: this.state.grid,
+        //     cellInFocus: {
+        //       x,
+        //       y,
+        //     },
+        //     directionOfEntry: 'across',
+        //   }, this.focusPrevious);
+        // } else {
           this.moveFocus(-1, 0);
-        }
+        //}
       } else {
         const nextCell = this.state.grid[cell.x][cell.y - 1];
-        if (nextCell.isCorrect) {
-          let x = cell.x;
-          let y = cell.y - 1;
-          this.setState({
-            grid: this.state.grid,
-            cellInFocus: {
-              x,
-              y,
-            },
-            directionOfEntry: 'down',
-          }, this.focusPrevious);
-        } else {
+        // if (nextCell.isCorrect) {
+        //   let x = cell.x;
+        //   let y = cell.y - 1;
+        //   this.setState({
+        //     grid: this.state.grid,
+        //     cellInFocus: {
+        //       x,
+        //       y,
+        //     },
+        //     directionOfEntry: 'down',
+        //   }, this.focusPrevious);
+        // } else {
           this.moveFocus(0, -1);
-        }
+        //}
       }
     }
   }
@@ -617,36 +617,36 @@ class Crossword extends Component {
       } else if (this.isAcross()) {
         // ToDo: skip cells that are correct --> should work
         const nextCell = this.state.grid[cell.x + 1][cell.y];
-        if (nextCell.isCorrect) {
-          let x = cell.x + 1;
-          let y = cell.y;
-          this.setState({
-            grid: this.state.grid,
-            cellInFocus: {
-              x,
-              y,
-            },
-            directionOfEntry: 'across',
-          }, this.focusNext);
-        } else {
+        // if (nextCell.isCorrect) {
+        //   let x = cell.x + 1;
+        //   let y = cell.y;
+        //   this.setState({
+        //     grid: this.state.grid,
+        //     cellInFocus: {
+        //       x,
+        //       y,
+        //     },
+        //     directionOfEntry: 'across',
+        //   }, this.focusNext);
+        // } else {
           this.moveFocus(1, 0);
-        }
+        //}
       } else {
         const nextCell = this.state.grid[cell.x][cell.y + 1];
-        if (nextCell.isCorrect) {
-          let x = cell.x;
-          let y = cell.y + 1;
-          this.setState({
-            grid: this.state.grid,
-            cellInFocus: {
-              x,
-              y,
-            },
-            directionOfEntry: 'down',
-          }, this.focusNext);
-        } else {
+        // if (nextCell.isCorrect) {
+        //   let x = cell.x;
+        //   let y = cell.y + 1;
+        //   this.setState({
+        //     grid: this.state.grid,
+        //     cellInFocus: {
+        //       x,
+        //       y,
+        //     },
+        //     directionOfEntry: 'down',
+        //   }, this.focusNext);
+        // } else {
           this.moveFocus(0, 1);
-        }
+        //}
       }
     }
   }
@@ -708,16 +708,16 @@ class Crossword extends Component {
       //}
 
       // Side effect
-      // window.history.replaceState(
-      //   undefined,
-      //   document.title,
-      //   `#${clue.id}`,
-      // );
+      window.history.replaceState(
+        undefined,
+        document.title,
+        `#${clue.id}`,
+      );
 
-      const cell = this.state.grid[x][y];
-      if (cell.isCorrect) {
-        this.focusNext();
-      }
+      // const cell = this.state.grid[x][y];
+      // if (cell.isCorrect) {
+      //   this.focusNext();
+      // }
     }
   }
 

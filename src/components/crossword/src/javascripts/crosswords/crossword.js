@@ -1,7 +1,7 @@
 import '../../stylesheets/main.scss';
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import fastdom from 'fastdom';
+//import fastdom from 'fastdom';
 import $ from '../lib/$';
 import mediator from '../lib/mediator';
 import { isBreakpoint } from '../lib/detect';
@@ -368,17 +368,17 @@ class Crossword extends Component {
         max: 'tablet',
       })
     ) {
-      fastdom.read(() => {
+      //fastdom.read(() => {
         // Our grid is a square, set the height of the grid wrapper
         // to the width of the grid wrapper
-        fastdom.write(() => {
+        //fastdom.write(() => {
           this.$gridWrapper.css(
             'height',
             `${this.$gridWrapper.offset().width}px`,
           );
-        });
+        //});
         this.gridHeightIsSet = true;
-      });
+      //});
     } else if (this.gridHeightIsSet) {
       // Remove inline style if tablet and wider
       this.$gridWrapper.attr('style', '');
@@ -818,7 +818,7 @@ class Crossword extends Component {
     }
   }
 
-  check(entry) {
+  async check(entry) {
     const cells = cellsForEntry(entry);
 
     // James ToDo: should only call check() if all cells have been filled out for clue
@@ -854,7 +854,7 @@ class Crossword extends Component {
           }),
         });
 
-        this.saveGrid(cells);
+        await this.saveGrid(cells);
         this.props.socket.emit('clue_answered', {roomNumber: this.props.gameId, playerNumber: this.state.playerNumber});
       } else {
         // James ToDo: leave bad answers in game, but don't highlight or lock them in      

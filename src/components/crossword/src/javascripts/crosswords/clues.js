@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import bean from 'bean';
-import fastdom from 'fastdom';
+//import fastdom from 'fastdom';
 import { classNames } from './classNames';
 import { isBreakpoint } from '../lib/detect';
 import { scrollTo } from '../lib/scroller';
@@ -84,9 +84,9 @@ class Clues extends Component {
             && (this.props.focussed
                 && (!prev.focussed || prev.focussed.id !== this.props.focussed.id))
     ) {
-      fastdom.read(() => {
+      //fastdom.read(() => {
         this.scrollIntoView(this.props.focussed);
-      });
+      //});
     }
   }
 

@@ -23,13 +23,17 @@ const scrollTo = (
   const distance = offset - from;
   const ease = createEasing(easeFn, duration);
   const scrollFn = () => {
-    fastdom.write(() => $container.scrollTop(from + ease() * distance));
+    //fastdom.write(() => 
+      $container.scrollTop(from + ease() * distance)
+    //);
   };
   const interval = setInterval(scrollFn, 15);
 
   setTimeout(() => {
     clearInterval(interval);
-    fastdom.write(() => $container.scrollTop(offset));
+    //fastdom.write(() => 
+      $container.scrollTop(offset)
+    //);
   }, duration);
 };
 

@@ -171,14 +171,17 @@ class Crossword extends Component {
   }
 
   onKeyDown(event) {
+    event.preventDefault();
+
     const cell = this.state.cellInFocus;
+    const newDirection = otherDirection(this.state.directionOfEntry);
+    const clue = cluesFor(this.clueMap, cell.x, cell.y);
 
     if (!event.metaKey && !event.ctrlKey && !event.altKey) {
       if (
         event.keyCode === keycodes.backspace
                 || event.keyCode === keycodes.delete
       ) {
-        event.preventDefault();
         if (cell) {
           if (this.cellIsEmpty(cell.x, cell.y)) {
             this.focusPrevious();
@@ -187,17 +190,18 @@ class Crossword extends Component {
             //this.saveGrid();
           }
         }
+      } else if ((((event.keyCode === keycodes.left || event.keyCode === keycodes.right) && this.state.directionOfEntry === 'down')
+                  || ((event.keyCode === keycodes.up || event.keyCode === keycodes.down) && this.state.directionOfEntry === 'across'))
+                  && clue[newDirection]) 
+      {
+          this.focusClue(cell.x, cell.y, newDirection);
       } else if (event.keyCode === keycodes.left) {
-        event.preventDefault();
         this.moveFocus(-1, 0);
       } else if (event.keyCode === keycodes.up) {
-        event.preventDefault();
         this.moveFocus(0, -1);
       } else if (event.keyCode === keycodes.right) {
-        event.preventDefault();
         this.moveFocus(1, 0);
       } else if (event.keyCode === keycodes.down) {
-        event.preventDefault();
         this.moveFocus(0, 1);
       }
     }

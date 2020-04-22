@@ -9,6 +9,10 @@
     margin: 0;
     margin-bottom: $gs-baseline;
     list-style-type: none;
+    @media screen and (min-width: 640px) {
+        overflow-y:scroll;
+        max-height: 600px;
+    }
 }
 
 .crossword__clue {

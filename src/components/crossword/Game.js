@@ -120,15 +120,15 @@ class Game extends Component {
       var cross = await this.props.getCrossword(game.crosswordId);
       var user = await this.props.getAuthenticatedUser();
       const playerNumber = game.players.filter(function (player) {
-        return player.userId == user.Id;
+        return player.userId == user.user.id;
       });
 
       this.setState({
         gridId: game.gridStateId, 
         crossword: cross, 
         players: game.players, 
-        playerNumber: playerNumber,
-        userId: user.id,
+        playerNumber: playerNumber[0].playerNumber,
+        userId: user.user.id,
         gameId: gameId
       })
     }

@@ -31,7 +31,7 @@ export const getGridState = (id) => async (dispatch) => {
 export const updateIfCurrentGridState = (gridObj) => async (dispatch) => {
     console.log('updating grid state from module..');
     try {
-        const response = await post(dispatch, UPDATE_IF_CURRENT_GRIDSTATE, `${GRIDSTATE_ENDPOINT_BASE}/update-if-current-gridstate/${gridObj.id}`, gridObj.grid, true);
+        const response = await post(dispatch, UPDATE_IF_CURRENT_GRIDSTATE, `${GRIDSTATE_ENDPOINT_BASE}/update-if-current-gridstate/${gridObj.id}`, gridObj, true);
         return Promise.resolve(response);
     } catch (err) {
         await handleError(dispatch, err, UPDATE_IF_CURRENT_GRIDSTATE);

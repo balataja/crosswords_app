@@ -66,9 +66,9 @@ class Crossword extends Component {
       dimensions.cols,
       this.props.data.entries
     );
-      // ToDo: need to get preserve ObjectId("gridstate") somehow.
+    
     this.state = {
-      gridId: this.props.gridId,//gridState._id,
+      gridId: this.props.gridId,
       grid: defaultGridState,
       cellInFocus: null,
       directionOfEntry: null,
@@ -854,15 +854,16 @@ class Crossword extends Component {
           }),
         });
 
-        this.saveGrid();
+        this.saveGrid(cells);
         this.props.socket.emit('clue_answered', {roomNumber: this.props.gameId, playerNumber: this.state.playerNumber});
       } else {
         // James ToDo: leave bad answers in game, but don't highlight or lock them in      
         this.setState({
           grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
             if (
-              badCells.some(bad => bad.x === gridX && bad.y === gridY)
+              cells.some(bad => bad.x === gridX && bad.y === gridY)
               && cell.answeredBy === this.state.playerNumber
+              && !cell.isCorrect
             ) {
               const previousValue = cell.value;
               cell.value = '';
@@ -905,9 +906,9 @@ class Crossword extends Component {
       : false;
   }
 
-  async saveGrid() {
+  async saveGrid(cells) {
     console.log(this.state.grid);
-    await this.props.updateIfCurrentGridState({id:this.state.gridId, grid:this.state.grid});
+    var saveRes = await this.props.updateIfCurrentGridState({id:this.state.gridId, grid:this.state.grid, cells: cells});
   }
 
   render() {

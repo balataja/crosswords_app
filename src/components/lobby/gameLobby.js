@@ -101,10 +101,10 @@ class GameLobby extends Component {
 
         var gameRes = await this.props.addGame(game);
         console.log(gameRes);
-        await this.props.continueGame(gameRes._id);
+        this.props.continueGame(gameRes._id);
     }
 
-    async continueGame (gameId) {
+    continueGame (gameId) {
         this.props.history.push(
             {
                 pathname:'/game/' + gameId,
@@ -120,7 +120,7 @@ class GameLobby extends Component {
         var joinedGame = await this.props.joinGame(data);
         console.log('joining game..');
         console.log(joinedGame);
-        await this.continueGame(game._id);
+        this.continueGame(game._id);
     }
 
     async joinSpecificGame (formProps) {

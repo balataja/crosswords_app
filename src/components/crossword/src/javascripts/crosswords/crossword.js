@@ -997,11 +997,11 @@ class Crossword extends Component {
             {anagramHelper}
           </div>
         </div>
-        <Controls
+        {/* <Controls
           hasSolutions={this.hasSolutions()}
           clueInFocus={focused}
           crossword={this}
-        />
+        /> */}
         <Clues
           clues={this.cluesData()}
           focussed={focused}

@@ -16,7 +16,8 @@ const TopLevelRoutes = () => (
     <Route exact path="/forgot-password" component={ForgotPassword} />
     <Route path="/reset-password/:token" component={ResetPassword} />
     {/* <Route exact path="/game" component={Game} /> */}
-    <Route exact path="/game/:gameId" component={Game} />
+    <Route exact path="/" component={RequireAuth(AuthenticatedRoutes)} />
+    <Route exact path="/game/:gameId" component={RequireAuth(AuthenticatedRoutes)} />
     <Route exact path="/lobby" component={RequireAuth(AuthenticatedRoutes)} />
   </Switch>
 );

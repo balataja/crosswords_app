@@ -76,7 +76,7 @@ class Header extends Component {
 
     return (
       <header className="clearfix">
-        <strong className="logo left">MKRN Starter</strong>
+        <strong className="logo left">Crosswords With Friends</strong>
         {isMobile &&
           <a
             href="javascript:void(null);"

@@ -171,8 +171,6 @@ class Crossword extends Component {
   }
 
   onKeyDown(event) {
-    event.preventDefault();
-
     const cell = this.state.cellInFocus;
     const newDirection = otherDirection(this.state.directionOfEntry);
     const clue = cluesFor(this.clueMap, cell.x, cell.y);
@@ -182,6 +180,7 @@ class Crossword extends Component {
         event.keyCode === keycodes.backspace
                 || event.keyCode === keycodes.delete
       ) {
+        event.preventDefault();
         if (cell) {
           if (this.cellIsEmpty(cell.x, cell.y)) {
             this.focusPrevious();
@@ -198,14 +197,19 @@ class Crossword extends Component {
                  && clue[newDirection]
                 ) 
       {
+        event.preventDefault();
         this.focusClue(cell.x, cell.y, newDirection);
       } else if (event.keyCode === keycodes.left) {
+        event.preventDefault();
         this.moveFocus(-1, 0);
       } else if (event.keyCode === keycodes.up) {
+        event.preventDefault();
         this.moveFocus(0, -1);
       } else if (event.keyCode === keycodes.right) {
+        event.preventDefault();
         this.moveFocus(1, 0);
       } else if (event.keyCode === keycodes.down) {
+        event.preventDefault();
         this.moveFocus(0, 1);
       }
     }

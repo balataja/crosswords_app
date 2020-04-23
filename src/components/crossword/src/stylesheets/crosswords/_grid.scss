@@ -34,7 +34,8 @@ $stickyClueHeight: $stickyClueVerticalPadding * 2 + ($stickyClueLineHeight * $st
 
     // Mobile only
     @include mq(tablet) {
-        display: none;
+        //display: none;
+        position: inherit;
     }
 
     &.is-fixed {
@@ -67,6 +68,14 @@ $stickyClueHeight: $stickyClueVerticalPadding * 2 + ($stickyClueLineHeight * $st
 .crossword__sticky-clue__inner {
     display: table-cell;
     vertical-align: middle;
+}
+
+.crossword__sticky-clue__left-arrow {
+    text-align: left;
+}
+
+.crossword__sticky-clue__right-arrow {
+    text-align: right;
 }
 
 // Another level necessary because CSS table-cells don't allow max heights,

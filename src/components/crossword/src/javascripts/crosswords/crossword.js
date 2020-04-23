@@ -190,11 +190,15 @@ class Crossword extends Component {
             //this.saveGrid();
           }
         }
-      } else if ((((event.keyCode === keycodes.left || event.keyCode === keycodes.right) && this.state.directionOfEntry === 'down')
-                  || ((event.keyCode === keycodes.up || event.keyCode === keycodes.down) && this.state.directionOfEntry === 'across'))
-                  && clue[newDirection]) 
+      } else if (( // using arrow keys opposite of current directionOfEntry will change clue axis
+                  ((event.keyCode === keycodes.left || event.keyCode === keycodes.right) && this.state.directionOfEntry === 'down')
+                  || 
+                  ((event.keyCode === keycodes.up || event.keyCode === keycodes.down) && this.state.directionOfEntry === 'across')
+                 )
+                 && clue[newDirection]
+                ) 
       {
-          this.focusClue(cell.x, cell.y, newDirection);
+        this.focusClue(cell.x, cell.y, newDirection);
       } else if (event.keyCode === keycodes.left) {
         this.moveFocus(-1, 0);
       } else if (event.keyCode === keycodes.up) {
@@ -712,11 +716,11 @@ class Crossword extends Component {
       //}
 
       // Side effect
-      window.history.replaceState(
-        undefined,
-        document.title,
-        `#${clue.id}`,
-      );
+      // window.history.replaceState(
+      //   undefined,
+      //   document.title,
+      //   `#${clue.id}`,
+      // );
 
       // const cell = this.state.grid[x][y];
       // if (cell.isCorrect) {

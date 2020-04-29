@@ -22,7 +22,6 @@ header {
 
       &.is-expanded {
         display: block;
-        z-index: 999;
 
         ul {
           position: absolute;
@@ -31,6 +30,7 @@ header {
           top: $header-height;
           padding: 10px;
           background-color: #efefef;
+          z-index: 999;
 
           li {
             display: block;

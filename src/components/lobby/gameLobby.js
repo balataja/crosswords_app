@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Link, useHistory, withRouter } from 'react-router-dom';
 import GenericForm from '../form-fields/generic-form';
-import { getCrossword, getCrosswords, getRandomCrossword } from '../../redux/modules/crossword';
+import { getCrossword, getCrosswords, getRandomCrossword, getRandomSundayCrossword } from '../../redux/modules/crossword';
 import { getGridState, initializeGridState } from '../../redux/modules/gridState';
 import { getGame, getGames, addGame, joinGame } from '../../redux/modules/game';
 import { getUserGames } from '../../redux/modules/user';
@@ -51,6 +51,8 @@ class GameLobby extends Component {
             }
          };
         this.createGame = this.createGame.bind(this);
+        this.createSundayGame = this.createSundayGame.bind(this);
+        this.createWeekdayGame = this.createWeekdayGame.bind(this);
         this.continueGame = this.continueGame.bind(this);
         this.joinSpecificGame = this.joinSpecificGame.bind(this);
     }
@@ -62,29 +64,35 @@ class GameLobby extends Component {
     async componentDidMount() {
         var user = await this.props.getAuthenticatedUser();
         console.log(user);
-        //var userGames = await this.props.getGames(user.user._id);
-        console.log(user.user.games);
         this.setState({
             user: user.user,
         });
     }
 
-    async createGame (formProps) {
-        var crosswordRes = await this.props.getRandomCrossword();//Math.floor(Math.random() * Math.floor(1000)));
-        //const num = Math.floor(Math.random() * crosswordRes.length);
-        console.log(crosswordRes);
+    async createSundayGame (formProps) {
+        var crosswordRes = await this.props.getRandomSundayCrossword();
+        console.log(crosswordRes[0]);
         this.setState({
-            crossword: crosswordRes[0]
-        });
+                crossword: crosswordRes[0]
+            },
+            this.createGame
+        );
+    }
 
-        const dimensions = this.state.crossword.dimensions;
-        this.columns = dimensions.cols;
-        this.rows = dimensions.rows;
-        this.clueMap = buildClueMap(this.state.crossword.entries);
+    async createWeekdayGame (formProps) {
+        var crosswordRes = await this.props.getRandomCrossword();
+        console.log(crosswordRes[0]);
+        this.setState({
+                crossword: crosswordRes[0]
+            },
+            this.createGame
+        );
+    }
 
+    async createGame () {
         const gridState = buildNewGrid(
-            dimensions.rows,
-            dimensions.cols,
+            this.state.crossword.rows,
+            this.state.crossword.cols,
             this.state.crossword.entries
         );
 
@@ -94,14 +102,13 @@ class GameLobby extends Component {
         })
         var game = {
             name: this.state.crossword.name,
-            gridStateId: this.state.gridStateId,
+            gridStateId: grid._id,//this.state.gridStateId,
             crosswordId: this.state.crossword._id,
             userId: this.state.user.id,
         }
 
         var gameRes = await this.props.addGame(game);
-        console.log(gameRes);
-        this.props.continueGame(gameRes._id);
+        this.continueGame(gameRes._id);
     }
 
     continueGame (gameId) {
@@ -124,13 +131,6 @@ class GameLobby extends Component {
     }
 
     async joinSpecificGame (formProps) {
-        // console.log(formProps.gameId);
-        // var gameToJoin = await this.props.getGame(formProps.gameId);
-        // console.log(gameToJoin);
-        // if (gameToJoin === undefined) {
-        //     return;
-        // } 
-
         const data = {
             gameId: formProps.gameId,
             userId: this.state.user.id,
@@ -155,7 +155,6 @@ class GameLobby extends Component {
                             onSubmit={handleSubmit(() => this.continueGame(game.gameId))}
                             errors={errors}
                             message={message}
-                            //formSpec={GameLobby.formSpec}
                             submitText={game.name}
                         />
                         <p>Send the following ID to friend to join this game.</p>
@@ -165,11 +164,18 @@ class GameLobby extends Component {
                     </div>
                 )}
                 <GenericForm
-                    onSubmit={handleSubmit(this.createGame)}
+                    onSubmit={handleSubmit(this.createSundayGame)}
                     errors={errors}
                     message={message}
-                    //formSpec={GameLobby.formSpec}
-                    submitText="Create New Random Game"
+                    submitText="Create New Random Sunday Game"
+                />
+                <br />
+
+                <GenericForm
+                    onSubmit={handleSubmit(this.createWeekdayGame)}
+                    errors={errors}
+                    message={message}
+                    submitText="Create New Random Weekday Game"
                 />
                 <br />
 
@@ -192,4 +198,4 @@ const mapStateToProps = ({ user, authentication }) => ({
     authenticated: authentication.authenticated,
   });
   
-  export default withRouter(connect(mapStateToProps, { getAuthenticatedUser, getUserGames, getCrosswords, getCrossword, getRandomCrossword, getGame, getGames, addGame, joinGame, getGridState, initializeGridState })(form(GameLobby)));
+  export default withRouter(connect(mapStateToProps, { getAuthenticatedUser, getUserGames, getCrosswords, getCrossword, getRandomCrossword, getRandomSundayCrossword, getGame, getGames, addGame, joinGame, getGridState, initializeGridState })(form(GameLobby)));

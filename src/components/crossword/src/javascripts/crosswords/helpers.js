@@ -232,12 +232,10 @@ const buildNewGrid = (rows, columns, entries) => {
     const { x, y } = entry.position;
 
     grid[x][y].number = entry.number;
-
     cellsForEntry(entry).forEach((cell) => {
       grid[cell.x][cell.y].isEditable = true;
     });
   });
-
   // $FlowFixMe
   return grid;
 };

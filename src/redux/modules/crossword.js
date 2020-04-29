@@ -9,6 +9,7 @@ const typeBase = `${APP_NAMESPACE}/${CROSSWORD_ENDPOINT_BASE}/`;
 export const GET_CROSSWORD = `${typeBase}GET_CROSSWORD`;
 export const GET_CROSSWORDS = `${typeBase}GET_CROSSWORDS`;
 export const GET_RANDOM_CROSSWORD = `${typeBase}GET_RANDOM_CROSSWORD`;
+export const GET_RANDOM_SUNDAY_CROSSWORD = `${typeBase}GET_RANDOM_SUNDAY_CROSSWORD`;
 
 // Actions
 
@@ -53,5 +54,14 @@ export const getRandomCrossword = (id) => async (dispatch) => {
     return Promise.resolve(response);
   } catch (err) {
     await handleError(dispatch, err, GET_RANDOM_CROSSWORD);
+  }
+};
+
+export const getRandomSundayCrossword = (id) => async (dispatch) => {
+  try {
+    const response = await get(dispatch, GET_RANDOM_SUNDAY_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/get-random-sunday-crossword`, true);
+    return Promise.resolve(response);
+  } catch (err) {
+    await handleError(dispatch, err, GET_RANDOM_SUNDAY_CROSSWORD);
   }
 };

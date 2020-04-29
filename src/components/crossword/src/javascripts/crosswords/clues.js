@@ -135,6 +135,9 @@ class Clues extends Component {
           this.state.showGradient ? '' : 'hide-gradient'
         }`}
       >
+        {this.props.puzzleClue}
+        <br />
+        {this.props.dow}
         <div
           className="crossword__clues"
           ref={(clues) => {

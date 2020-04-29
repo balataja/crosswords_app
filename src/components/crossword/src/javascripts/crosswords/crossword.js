@@ -56,14 +56,14 @@ class Crossword extends Component {
 
   constructor(props) {
     super(props);
-    const dimensions = this.props.data.dimensions;
-    this.columns = dimensions.cols;
-    this.rows = dimensions.rows;
+    //const dimensions = this.props.data.dimensions;
+    this.columns = this.props.data.cols;
+    this.rows = this.props.data.rows;
     this.clueMap = buildClueMap(this.props.data.entries);
     console.log("socket will be at: " + `${getApiUrl()}`);
     const defaultGridState = buildNewGrid(
-      dimensions.rows,
-      dimensions.cols,
+      this.rows,
+      this.columns,
       this.props.data.entries
     );
     
@@ -74,6 +74,8 @@ class Crossword extends Component {
       directionOfEntry: null,
       showAnagramHelper: false,
       playerNumber: this.props.playerNumber,
+      puzzleClue: this.props.data.puzzleClue,
+      dow: this.props.data.dow,
     };
   }
 
@@ -454,11 +456,9 @@ class Crossword extends Component {
       const clue = this.clueInFocus();
       if (shouldCheckClue(this.state.grid, clue)) {
         console.log('clue should be checked');
-        // James ToDo: If player has entered whole answer into currently focused clue, then check
         this.check(clue);
       }
 
-      //this.saveGrid();
       this.focusNext();
     }
   }
@@ -563,7 +563,7 @@ class Crossword extends Component {
         }
       } else if (this.isAcross()) {
         // ToDo: skip cells that are correct --> should work
-        const nextCell = this.state.grid[cell.x - 1][cell.y];
+        //const nextCell = this.state.grid[cell.x - 1][cell.y];
         // if (nextCell.isCorrect) {
         //   let x = cell.x - 1;
         //   let y = cell.y;
@@ -579,7 +579,7 @@ class Crossword extends Component {
           this.moveFocus(-1, 0);
         //}
       } else {
-        const nextCell = this.state.grid[cell.x][cell.y - 1];
+        //const nextCell = this.state.grid[cell.x][cell.y - 1];
         // if (nextCell.isCorrect) {
         //   let x = cell.x;
         //   let y = cell.y - 1;
@@ -849,9 +849,6 @@ class Crossword extends Component {
         })
         .map(cellAndSolution => cellAndSolution[0]);
 
-      console.log(entry);
-      console.log(cells);
-
       if (badCells.length === 0) {
         // James ToDo: some cells that are empty are getting set with isCorrect
         console.log('no bad cells!')
@@ -1018,6 +1015,8 @@ class Crossword extends Component {
           crossword={this}
         /> */}
         <Clues
+          puzzleClue={this.state.puzzleClue}
+          dow={this.state.dow}
           clues={this.cluesData()}
           focussed={focused}
           focusFirstCellInClueById={this.focusFirstCellInClueById.bind(

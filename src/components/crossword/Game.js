@@ -119,16 +119,21 @@ class Game extends Component {
       var game = await this.props.getGame(gameId);
       var cross = await this.props.getCrossword(game.crosswordId);
       var user = await this.props.getAuthenticatedUser();
+
       const playerNumber = game.players.filter(function (player) {
         return player.userId == user.user.id;
       });
+      const player = {
+        number: playerNumber[0].playerNumber,
+        name: user.user.firstName + ' ' + user.user.lastName,
+      };
 
       this.setState({
         gridId: game.gridStateId, 
         crossword: cross, 
         players: game.players, 
         playerNumber: playerNumber[0].playerNumber,
-        userId: user.user.id,
+        player: player,
         gameId: gameId
       })
     }
@@ -147,6 +152,7 @@ class Game extends Component {
                       data={this.state.crossword}
                       gridId={this.state.gridId}
                       playerNumber={this.state.playerNumber}
+                      player={this.state.player}
                       gameId={this.state.gameId}
                       socket={socket}
                   />

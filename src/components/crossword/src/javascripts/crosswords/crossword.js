@@ -11,6 +11,7 @@ import { AnagramHelper } from './anagram-helper/main';
 import debounce from 'lodash/debounce';
 import zip from 'lodash/zip';
 import { Clues } from './clues';
+import { Scoreboard } from './scoreboard';
 import { Controls } from './controls';
 import { HiddenInput } from './hidden-input';
 import { Grid } from './grid';
@@ -66,14 +67,23 @@ class Crossword extends Component {
       this.columns,
       this.props.data.entries
     );
+    const defaultScoreboard = [
+      {
+        playerNumber: 1,
+        playerName: 'place holder',
+        wordsCompleted: 0,
+        cellsAnswered: 0,
+      }
+    ]
     
     this.state = {
       gridId: this.props.gridId,
       grid: defaultGridState,
+      scoreboard: defaultScoreboard,
       cellInFocus: null,
       directionOfEntry: null,
       showAnagramHelper: false,
-      playerNumber: this.props.playerNumber,
+      player: this.props.player,
       puzzleClue: this.props.data.puzzleClue,
       dow: this.props.data.dow,
     };
@@ -88,7 +98,8 @@ class Crossword extends Component {
 
     var grid = await this.props.getGridState(this.props.gridId);
     this.setState({
-      grid: grid.entries
+      grid: grid.entries,
+      scoreboard: grid.scoreboard,
     });
 
     // Update all other users upon correct clue
@@ -96,7 +107,8 @@ class Crossword extends Component {
       console.log('from crossword component: ' + msg); 
       var grid = await this.props.getGridState(this.props.gridId);
       this.setState({
-        grid: grid.entries
+        grid: grid.entries,
+        scoreboard: grid.scoreboard,
       });
     }.bind(this));
 
@@ -106,7 +118,7 @@ class Crossword extends Component {
       //window.setTimeout( 'app.connect()', 2000 );
     });
 
-    this.props.socket.emit('player_joined_game', { roomNumber: this.props.gameId, playerNumber: this.state.playerNumber });
+    this.props.socket.emit('player_joined_game', { roomNumber: this.props.gameId, playerName: this.state.player.name });
     this.props.socket.on('other_player_joined_game', function(msg) {
       console.log('player joined game: ' + msg);
       NotificationManager.success('Player Joined', msg);
@@ -156,7 +168,7 @@ class Crossword extends Component {
   }
 
   componentWillUnmount() {
-    this.props.socket.emit('player_left_game', { roomNumber: this.props.gameId, playerNumber: this.state.playerNumber });
+    this.props.socket.emit('player_left_game', { roomNumber: this.props.gameId, playerName: this.state.player.name });
     this.props.socket.off('update_other_users');
     this.props.socket.off('player_disconnected');
     //this.props.socket.close();
@@ -410,7 +422,7 @@ class Crossword extends Component {
           const previousValue = cell.value;
           cell.value = value;
           cell.isError = false;
-          cell.answeredBy = this.state.playerNumber;
+          cell.answeredBy = this.state.player.number;
           if (triggerOnMoveCallback) {
             this.props.onMove({
               x, y, value, previousValue,
@@ -867,14 +879,14 @@ class Crossword extends Component {
         });
 
         await this.saveGrid(cells);
-        this.props.socket.emit('clue_answered', {roomNumber: this.props.gameId, playerNumber: this.state.playerNumber});
+        this.props.socket.emit('clue_answered', {roomNumber: this.props.gameId, playerName: this.state.player.name});
       } else {
         // James ToDo: leave bad answers in game, but don't highlight or lock them in      
         this.setState({
           grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
             if (
               cells.some(bad => bad.x === gridX && bad.y === gridY)
-              && cell.answeredBy === this.state.playerNumber
+              && cell.answeredBy === this.state.player.number
               && !cell.isCorrect
             ) {
               const previousValue = cell.value;
@@ -920,7 +932,7 @@ class Crossword extends Component {
 
   async saveGrid(cells) {
     console.log(this.state.grid);
-    var saveRes = await this.props.updateIfCurrentGridState({id:this.state.gridId, grid:this.state.grid, cells: cells});
+    var saveRes = await this.props.updateIfCurrentGridState({id:this.state.gridId, grid:this.state.grid, cells: cells, playerNumber: this.props.player.number});
   }
 
   render() {
@@ -1009,11 +1021,15 @@ class Crossword extends Component {
             {anagramHelper}
           </div>
         </div>
-        {/* <Controls
+        <Controls
           hasSolutions={this.hasSolutions()}
           clueInFocus={focused}
           crossword={this}
-        /> */}
+        />
+        <Scoreboard 
+          score={this.state.scoreboard}
+          player={this.state.player}
+        />
         <Clues
           puzzleClue={this.state.puzzleClue}
           dow={this.state.dow}

@@ -39,6 +39,13 @@
             }
         }
 
+        .crossword__scoreboard {
+            @include mq(tablet) {
+                margin-left: 0 - $size;
+                width: $size;
+            }
+        }
+
         .crossword__hidden-input-wrapper {
             width: percentage(1 / $cells);
             height: percentage(1 / $cells);
@@ -56,6 +63,13 @@
     margin-top: $gs-baseline;
     float: left;
     clear: both;
+}
+
+.crossword__scoreboard {
+    margin-top: $gs-baseline;
+    float: left;
+    clear: both;
+    border-style: solid;
 }
 
 // scrollable clues - only on tablets not in accessible view

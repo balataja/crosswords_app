@@ -90,11 +90,13 @@ class GameLobby extends Component {
     }
 
     async createGame () {
-        const gridState = buildNewGrid(
-            this.state.crossword.rows,
-            this.state.crossword.cols,
-            this.state.crossword.entries
-        );
+        const gridState = {
+            grid: buildNewGrid(
+                this.state.crossword.rows,
+                this.state.crossword.cols,
+                this.state.crossword.entries),
+            playerName: this.state.user.firstName + ' ' + this.state.user.lastName,
+        };
 
         var grid = await this.props.initializeGridState(gridState);
         this.setState({

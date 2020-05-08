@@ -29,35 +29,58 @@
         fill: $xword-correct-background-colour-p1;
     }
 }
+.crossword__scoreboard--p1 {
+    background-color: $xword-correct-background-colour-p1;
+}
+
 .crossword__cell--correct-p2 {
     &,
     .crossword__grid--correct & {
         fill: $xword-correct-background-colour-p2;
     }
 }
+.crossword__scoreboard--p2 {
+    background-color: $xword-correct-background-colour-p2;
+}
+
 .crossword__cell--correct-p3 {
     &,
     .crossword__grid--correct & {
         fill: $xword-correct-background-colour-p3;
     }
 }
+.crossword__scoreboard--p3 {
+    background-color: $xword-correct-background-colour-p3;
+}
+
 .crossword__cell--correct-p4 {
     &,
     .crossword__grid--correct & {
         fill: $xword-correct-background-colour-p4;
     }
 }
+.crossword__scoreboard--p4 {
+    background-color: $xword-correct-background-colour-p4;
+}
+
 .crossword__cell--correct-p5 {
     &,
     .crossword__grid--correct & {
         fill: $xword-correct-background-colour-p5;
     }
 }
+.crossword__scoreboard--p5 {
+    background-color: $xword-correct-background-colour-p5;
+}
+
 .crossword__cell--correct-p6 {
     &,
     .crossword__grid--correct & {
         fill: $xword-correct-background-colour-p6;
     }
+}
+.crossword__scoreboard--p6 {
+    background-color: $xword-correct-background-colour-p6;
 }
 
 // .crossword__cell--correct-and-highlighted {

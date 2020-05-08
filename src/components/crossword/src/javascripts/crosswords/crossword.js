@@ -1021,11 +1021,11 @@ class Crossword extends Component {
             {anagramHelper}
           </div>
         </div>
-        <Controls
+        {/* <Controls
           hasSolutions={this.hasSolutions()}
           clueInFocus={focused}
           crossword={this}
-        />
+        /> */}
         <Scoreboard 
           score={this.state.scoreboard}
           player={this.state.player}

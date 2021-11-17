@@ -159,8 +159,9 @@ class GameLobby extends Component {
                             onSubmit={handleSubmit(() => this.continueGame(game.gameId))}
                             errors={errors}
                             message={message}
-                            submitText={game.name}
+                            submitText={new Date(game.name).toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                         />
+                        <p>Created: {new Date(game.createdDate).toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                         <p>Send the following ID to friend to join this game.</p>
                         <p>
                             Game ID: {game.gameId}

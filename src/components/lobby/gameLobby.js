@@ -62,10 +62,12 @@ class GameLobby extends Component {
     ];
       
     async componentDidMount() {
-        var user = await this.props.getAuthenticatedUser();
-        console.log(user);
+        var res = await this.props.getAuthenticatedUser();
+        res.user.games.sort(function(a, b) {
+            return new Date(b.createdDate) - new Date(a.createdDate);
+        });
         this.setState({
-            user: user.user,
+            user: res.user,
         });
     }
 

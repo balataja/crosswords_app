@@ -27,6 +27,7 @@ module.exports = () => ({
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(__dirname, 'src/index.html'),
+      filename: 'index.html'
     }),
   ],
   mode: 'production',
@@ -39,27 +40,56 @@ module.exports = () => ({
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        include: path.join(__dirname, 'src'),
-        use: 
-          {
-            loader: 'babel-loader',
-            options: {
-              babelrc: false,
-              presets: [
-                ['es2015', { modules: false }],
-                'react',
-                'stage-2',
-              ],
-            },
-          },
-        
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: "defaults" }]
+            ]
+          }
+        }
       },
       {
-        test: /\.(css|scss)$/,
-        loader: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.(css)$/,
+        use: ['style-loader','css-loader']
       },
-    ],
-  },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }, 
+    ]
+  }
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.js$/,
+  //       exclude: /node_modules/,
+  //       include: path.join(__dirname, 'src'),
+  //       use: 
+  //         {
+  //           loader: 'babel-loader',
+  //           options: {
+  //             babelrc: false,
+  //             presets: [
+  //               ['es2015', { modules: false }],
+  //               'react',
+  //               'stage-2',
+  //             ],
+  //           },
+  //         },
+        
+  //     },
+  //     {
+  //       test: /\.(css|scss)$/,
+  //       loader: ['style-loader', 'css-loader', 'sass-loader'],
+  //     },
+  //   ],
+  // },
 });

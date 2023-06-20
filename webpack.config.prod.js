@@ -52,7 +52,6 @@ module.exports = () => ({
                 'react',
                 'stage-2',
               ],
-              plugins: [],
             },
           },
         

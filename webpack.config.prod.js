@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = () => ({
   devtool: 'source-map',
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     path.join(__dirname, 'src/index.js'),
   ],
   output: {
@@ -29,20 +29,20 @@ module.exports = () => ({
       template: path.resolve(__dirname, 'src/index.html'),
     }),
   ],
-  //mode: 'production',
+  mode: 'production',
   //target: 'node',
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    global: true
-  },
+  // node: {
+  //   fs: 'empty',
+  //   net: 'empty',
+  //   global: true
+  // },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         include: path.join(__dirname, 'src'),
-        use: [
+        use: 
           {
             loader: 'babel-loader',
             options: {
@@ -55,7 +55,7 @@ module.exports = () => ({
               plugins: [],
             },
           },
-        ],
+        
       },
       {
         test: /\.(css|scss)$/,

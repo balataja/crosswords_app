@@ -3,14 +3,26 @@ import { APP_NAMESPACE } from '../../util/redux-constants';
 import { put, post, get, del } from '../../util/http-utils';
 import { handleError } from '../../util/store-utils';
 
+// node.js api Constants
+// const GRIDSTATE_ENDPOINT_BASE = 'game';
+// const GetGame = `${typeBase}GET_GAME`;
+// const GetGames = `${typeBase}GET_GAMES`;
+// const AddGame = `${typeBase}ADD_GAME`;
+// const JoinGame = `${typeBase}JOIN_GAME`;
+
+// .net core api constants
 const GRIDSTATE_ENDPOINT_BASE = 'game';
+const GetGame = 'GetGame';
+const GetGames = 'GET_GAMES'; // when do I do this?
+const AddGame = 'AddGame';
+const JoinGame = 'JoinGame';
+
 const typeBase = `${APP_NAMESPACE}/${GRIDSTATE_ENDPOINT_BASE}/`;
 
-// Constants
-export const GET_GAME = `${typeBase}GET_GAME`;
-export const GET_GAMES = `${typeBase}GET_GAMES`;
-export const ADD_GAME = `${typeBase}ADD_GAME`;
-export const JOIN_GAME = `${typeBase}JOIN_GAME`;
+const GET_GAME = `${typeBase}GetGame`;
+const GET_GAMES = `${typeBase}${GetGames}`;
+const ADD_GAME = `${typeBase}${AddGame}`;
+const JOIN_GAME = `${typeBase}${JoinGame}`;
 
 // Actions
 export const getGame = (gameId) => async (dispatch) => {
@@ -19,7 +31,7 @@ export const getGame = (gameId) => async (dispatch) => {
         // {
         //     console.log('gridState id cannot be undefined..');
         // } else {
-            const response = await get(dispatch, GET_GAME, `${GRIDSTATE_ENDPOINT_BASE}/get-game/${gameId}`, true);
+            const response = await get(dispatch, GET_GAME, `${GRIDSTATE_ENDPOINT_BASE}/${GetGame}/${gameId}`, true);
             return Promise.resolve(response);
         //}
     } catch (err) {

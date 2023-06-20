@@ -39,7 +39,7 @@ import { keycodes } from './keycodes';
 //import { saveGridState, loadGridState } from './persistence';
 import { getGridState, updateIfCurrentGridState } from '../../../../../redux/modules/gridState';
 import { classNames } from './classNames';
-//import io from 'socket.io-client';
+import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
@@ -47,8 +47,8 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import '../../stylesheets/notifications.scss';
 import { getAppUrl, getApiUrl } from '../../../../../util/environment-utils';
 
-//const socket = io('http://localhost:3000');
-//const socket = io(`${getApiUrl()}`);
+//const socket = io('ws://localhost:3000', { transports : ['websocket'] });
+const socket = io(`${getApiUrl()}`);
 
 class Crossword extends Component {
   static propTypes = {
@@ -91,10 +91,10 @@ class Crossword extends Component {
 
   async componentDidMount() {
 
-    //socket.on('connect', function() {
+    socket.on('connect', function() {
       console.log('client connecting to game..' + this.props.gameId)
       this.props.socket.emit('room', this.props.gameId)
-    //}.bind(this));
+    }.bind(this));
 
     var grid = await this.props.getGridState(this.props.gridId);
     this.setState({
@@ -931,7 +931,7 @@ class Crossword extends Component {
   }
 
   async saveGrid(cells) {
-    console.log(this.state.grid);
+    //console.log(this.state.grid);
     var saveRes = await this.props.updateIfCurrentGridState({id:this.state.gridId, grid:this.state.grid, cells: cells, playerNumber: this.props.player.number});
   }
 

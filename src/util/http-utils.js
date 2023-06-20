@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { getApiUrl, getEnvironment } from './environment-utils';
+import { getApiUrl, getApiLoginUrl, getEnvironment } from './environment-utils';
 import { getCookie } from './cookie-utils';
 import { PENDING, SUCCESS, POST, PUT, GET, DELETE } from './redux-constants';
 
 const API_URL = getApiUrl();
+const API_LOGIN_URL = getApiLoginUrl();
 
 /**
  * logError  - Log error without UI display
@@ -44,7 +45,11 @@ const httpRequest = async (dispatch, requestType = GET, actionType = '', opts = 
       meta: { status: PENDING },
     });
 
-    const reqArgs = [`${API_URL}/${opts.endpoint || ''}`];
+    var reqArgs = [`${API_URL}/${opts.endpoint || ''}`];
+
+    if (opts.useLoginUrl === true) {
+      reqArgs = [`${API_LOGIN_URL}/${opts.endpoint || ''}`];
+    }
 
     // Add a data payload to the request if it's a POST or PUT
     if (requestType === POST || requestType === PUT) {
@@ -58,7 +63,7 @@ const httpRequest = async (dispatch, requestType = GET, actionType = '', opts = 
         ? { headers: { Authorization: getCookie('token') } }
         : {},
     );
-
+    
     const response = await axios[requestType](...reqArgs);
 
     dispatch({
@@ -84,8 +89,8 @@ const httpRequest = async (dispatch, requestType = GET, actionType = '', opts = 
  *
  * @returns {Promise}
  */
-export const post = (dispatch, type, endpoint, data, requiresAuth) =>
-  httpRequest(dispatch, POST, type, { endpoint, data, requiresAuth });
+export const post = (dispatch, type, endpoint, data, requiresAuth, useLoginUrl = false) =>
+  httpRequest(dispatch, POST, type, { endpoint, data, requiresAuth, useLoginUrl });
 
 /**
  * put - Generic action to make a PUT request with axios
@@ -97,8 +102,8 @@ export const post = (dispatch, type, endpoint, data, requiresAuth) =>
  *
  * @returns {Promise}
  */
-export const put = async (dispatch, type, endpoint, data, requiresAuth) =>
-  httpRequest(dispatch, PUT, type, { endpoint, data, requiresAuth });
+export const put = async (dispatch, type, endpoint, data, requiresAuth, useLoginUrl = false) =>
+  httpRequest(dispatch, PUT, type, { endpoint, data, requiresAuth, useLoginUrl });
 
 /**
  * get - Generic action to make a GET request with axios
@@ -109,8 +114,8 @@ export const put = async (dispatch, type, endpoint, data, requiresAuth) =>
  *
  * @returns {Promise}
  */
-export const get = async (dispatch, type, endpoint, requiresAuth) =>
-  httpRequest(dispatch, GET, type, { endpoint, requiresAuth });
+export const get = async (dispatch, type, endpoint, requiresAuth, useLoginUrl = false) =>
+  httpRequest(dispatch, GET, type, { endpoint, requiresAuth, useLoginUrl });
 
 /**
  * del - Generic action to make a DELETE request with axios
@@ -121,5 +126,5 @@ export const get = async (dispatch, type, endpoint, requiresAuth) =>
  *
  * @returns {Promise}
  */
-export const del = async (dispatch, type, endpoint, requiresAuth) =>
-  httpRequest(dispatch, DELETE, type, { endpoint, requiresAuth });
+export const del = async (dispatch, type, endpoint, requiresAuth, useLoginUrl = false) =>
+  httpRequest(dispatch, DELETE, type, { endpoint, requiresAuth, useLoginUrl });

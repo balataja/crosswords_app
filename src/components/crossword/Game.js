@@ -115,8 +115,10 @@ class Game extends Component {
 
     async componentWillMount() {
       console.log(this.props.match.params.gameId);
-      const gameId = this.props.match.params.gameId
+      const gameId = this.props.match.params.gameId;
       var game = await this.props.getGame(gameId);
+      console.log('fetching game...')
+      //console.log(game);
       var cross = await this.props.getCrossword(game.crosswordId);
       var user = await this.props.getAuthenticatedUser();
 

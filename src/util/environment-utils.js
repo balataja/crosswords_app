@@ -17,13 +17,35 @@ export const getApiUrl = () => {
     // case 'heroku_build':
     //   return '';
     case 'production':
-      return 'https://pacific-savannah-08041.herokuapp.com';
+      //return 'https://pacific-savannah-08041.herokuapp.com';
     case 'stage':
     case 'test':
     case 'development':
+      //return 'http://localhost:3000' // for node.js end point
+      //return 'http://localhost:7186' // for .net core end point
     default:
-      //return 'http://localhost:3000';
-      return 'https://pacific-savannah-08041.herokuapp.com'
+      return 'http://localhost:3000' // for node.js end point
+      //return 'https://localhost:7186' // for .net core end point
+
+      //return 'https://pacific-savannah-08041.herokuapp.com'
+  }
+};
+
+export const getApiLoginUrl = () => {
+  switch (getEnvironment()) {
+    // case 'heroku_build':
+    //   return '';
+    case 'production':
+      //return 'https://pacific-savannah-08041.herokuapp.com';
+    case 'stage':
+    case 'test':
+    case 'development':
+      return 'http://localhost:3000' // for node.js end point
+      //return 'https://localhost:7186' // for .net core end point
+    default:
+      //return 'https://pacific-savannah-08041.herokuapp.com'
+      return 'http://localhost:3000' // for node.js end point
+      //return 'https://localhost:7186' // for .net core end point
   }
 };
 
@@ -35,12 +57,13 @@ export const getApiUrl = () => {
 export const getAppUrl = () => {
   switch (getEnvironment()) {
     case 'production':
-      return 'https://crosswordswithfriends.herokuapp.com';
+      //return 'https://crosswordswithfriends.herokuapp.com';
     case 'stage':
     case 'test':
     case 'development':
+      return 'https://localhost:8080';
     default:
-      return 'https://crosswordswithfriends.herokuapp.com';
-      //return 'http://localhost:8080';
+      return 'https://localhost:8080';
+      //return 'https://crosswordswithfriends.herokuapp.com';
   }
 };

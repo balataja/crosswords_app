@@ -10,7 +10,7 @@ import SocketContext from './util/socket-context'
 import { getApiUrl } from './util/environment-utils';
 import io from 'socket.io-client';
 
-// Import stylesheets
+//Import stylesheets
 import './assets/stylesheets/base.scss';
 
 const store = configureStore();

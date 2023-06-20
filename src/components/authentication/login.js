@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-//import io from 'socket.io-client';
+import io from 'socket.io-client';
 import TextInput from '../form-fields/text-input';
 import GenericForm from '../form-fields/generic-form';
 import { login, CHANGE_AUTH } from '../../redux/modules/authentication';
@@ -13,7 +13,8 @@ import './authentication.scss';
 const form = reduxForm({
   form: 'login',
 });
-//const socket = io('http://localhost:3000');
+//const socket = io('ws://localhost:3000', { transports : ['websocket'] });
+//const socket = io(`${getApiUrl()}`, { transports : ['websocket'] });
 
 class Login extends Component {
   static propTypes = {
@@ -24,7 +25,7 @@ class Login extends Component {
     message: PropTypes.string,
     loading: PropTypes.bool,
   };
-
+  static errorsSpec = ['', ''];
   static formSpec = [
     { id: 'email', name: 'email', label: 'Email', type: 'email', placeholder: 'you@yourdomain.com', component: TextInput },
     { id: 'password', name: 'password', label: 'Password', type: 'password', placeholder: '********', component: TextInput },
@@ -44,14 +45,14 @@ class Login extends Component {
   }
 
   render = () => {
-    const { handleSubmit, errors, message, loading } = this.props;
+    const { handleSubmit, errorsSpec, message, loading } = this.props;
 
     return (
       <div className={`auth-box ${loading ? 'is-loading' : ''}`}>
         <h1>Login</h1>
         <GenericForm
           onSubmit={handleSubmit(this.handleFormSubmit)}
-          errors={errors}
+          errors={errorsSpec}
           message={message}
           formSpec={Login.formSpec}
           submitText="Login"

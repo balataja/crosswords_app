@@ -73,7 +73,7 @@ class GameLobby extends Component {
 
     async createSundayGame (formProps) {
         var crosswordRes = await this.props.getRandomSundayCrossword();
-        console.log(crosswordRes[0]);
+        //console.log(crosswordRes[0]);
         this.setState({
                 crossword: crosswordRes[0]
             },
@@ -130,7 +130,7 @@ class GameLobby extends Component {
         }
         var joinedGame = await this.props.joinGame(data);
         console.log('joining game..');
-        console.log(joinedGame);
+        //console.log(joinedGame);
         this.continueGame(game._id);
     }
 

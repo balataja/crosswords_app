@@ -2,14 +2,26 @@ import _ from 'lodash';
 import { APP_NAMESPACE } from '../../util/redux-constants';
 import { put, post, get, del } from '../../util/http-utils';
 
+// node.js api Constants
 const CROSSWORD_ENDPOINT_BASE = 'crossword';
+const CrosswordAPI = 'GET_CROSSWORD'
+const CrosswordsAPI = 'GET_CROSSWORDS'
+const RandomCrosswordAPI = 'GET_RANDOM_CROSSWORD'
+const RandomSundayCrosswordAPI = 'GET_RANDOM_SUNDAY_CROSSWORD'
+
+// .net core api constants
+// const CROSSWORD_ENDPOINT_BASE = 'crosswords';
+// const CrosswordAPI = 'Get'
+// const CrosswordsAPI = '' //why do I need to grab all crosswords?
+// const RandomCrosswordAPI = 'GetWeekday'
+// const RandomSundayCrosswordAPI = 'GetSunday'
+
 const typeBase = `${APP_NAMESPACE}/${CROSSWORD_ENDPOINT_BASE}/`;
 
-// Constants
-export const GET_CROSSWORD = `${typeBase}GET_CROSSWORD`;
-export const GET_CROSSWORDS = `${typeBase}GET_CROSSWORDS`;
-export const GET_RANDOM_CROSSWORD = `${typeBase}GET_RANDOM_CROSSWORD`;
-export const GET_RANDOM_SUNDAY_CROSSWORD = `${typeBase}GET_RANDOM_SUNDAY_CROSSWORD`;
+const GET_CROSSWORD = `${typeBase}${CrosswordAPI}`;
+const GET_CROSSWORDS = `${typeBase}${CrosswordsAPI}`;
+const GET_RANDOM_CROSSWORD = `${typeBase}${RandomCrosswordAPI}`;
+const GET_RANDOM_SUNDAY_CROSSWORD = `${typeBase}${RandomSundayCrosswordAPI}`;
 
 // Actions
 
@@ -21,7 +33,7 @@ export const GET_RANDOM_SUNDAY_CROSSWORD = `${typeBase}GET_RANDOM_SUNDAY_CROSSWO
  */
 export const getCrossword = (id) => async (dispatch) => {
   try {
-    const response = await get(dispatch, GET_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/get-crossword/${id}`, true);
+    const response = await get(dispatch, GET_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/${CrosswordAPI}/${id}`, true);
     return Promise.resolve(response);
   } catch (err) {
     await handleError(dispatch, err, GET_CROSSWORD);
@@ -35,7 +47,7 @@ export const getCrossword = (id) => async (dispatch) => {
  */
 export const getCrosswords = () => async (dispatch) => {
   try {
-    const response = await get(dispatch, GET_CROSSWORDS, `${CROSSWORD_ENDPOINT_BASE}/get-crosswords`, true);
+    const response = await get(dispatch, GET_CROSSWORDS, `${CROSSWORD_ENDPOINT_BASE}/${CrosswordsAPI}`, true);
     return Promise.resolve(response);
   } catch (err) {
     await handleError(dispatch, err, GET_CROSSWORDS);
@@ -50,7 +62,7 @@ export const getCrosswords = () => async (dispatch) => {
  */
 export const getRandomCrossword = (id) => async (dispatch) => {
   try {
-    const response = await get(dispatch, GET_RANDOM_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/get-random-crossword`, true);
+    const response = await get(dispatch, GET_RANDOM_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/${RandomCrosswordAPI}`, true);
     return Promise.resolve(response);
   } catch (err) {
     await handleError(dispatch, err, GET_RANDOM_CROSSWORD);
@@ -59,7 +71,7 @@ export const getRandomCrossword = (id) => async (dispatch) => {
 
 export const getRandomSundayCrossword = (id) => async (dispatch) => {
   try {
-    const response = await get(dispatch, GET_RANDOM_SUNDAY_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/get-random-sunday-crossword`, true);
+    const response = await get(dispatch, GET_RANDOM_SUNDAY_CROSSWORD, `${CROSSWORD_ENDPOINT_BASE}/${RandomSundayCrosswordAPI}`, true);
     return Promise.resolve(response);
   } catch (err) {
     await handleError(dispatch, err, GET_RANDOM_SUNDAY_CROSSWORD);

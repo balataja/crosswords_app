@@ -6,8 +6,8 @@ import ForgotPassword from '../components/authentication/forgot-password';
 import ResetPassword from '../components/authentication/reset-password';
 import RequireAuth from '../components/hoc/require-auth';
 import AuthenticatedRoutes from './authenticated/';
-import Game from '../components/crossword/Game';
-import GameLobby from '../components/lobby/gameLobby';
+//import Game from '../components/crossword/Game';
+//import GameLobby from '../components/lobby/gameLobby';
 
 const TopLevelRoutes = () => (
   <Switch>

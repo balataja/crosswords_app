@@ -27,7 +27,8 @@ export const changeAuthentication = payload => dispatch =>
  */
 export const login = (credentials, desiredPath) => async (dispatch) => {
   try {
-    const response = await post(dispatch, CHANGE_AUTH, `${AUTH_ENDPOINT_BASE}/login`, credentials, false);
+    console.log('loggin in..')
+    const response = await post(dispatch, CHANGE_AUTH, `${AUTH_ENDPOINT_BASE}/login`, credentials, false, true);
 
     // If the login was successful, set the JWT as a cookie
     if (response) {
@@ -50,7 +51,7 @@ export const login = (credentials, desiredPath) => async (dispatch) => {
  */
 export const register = formData => async (dispatch) => {
   try {
-    const response = await post(dispatch, CHANGE_AUTH, `${AUTH_ENDPOINT_BASE}/register`, formData, false);
+    const response = await post(dispatch, CHANGE_AUTH, `${AUTH_ENDPOINT_BASE}/register`, formData, false, true);
 
     // If the registration was successful, set the JWT as a cookie
     if (response) {
@@ -90,7 +91,7 @@ export const logoutUser = () => (dispatch) => {
  */
 export const forgotPassword = formData => async (dispatch) => {
   try {
-    const response = await post(dispatch, CHANGE_AUTH, `${AUTH_ENDPOINT_BASE}/forgot-password`, formData, false);
+    const response = await post(dispatch, CHANGE_AUTH, `${AUTH_ENDPOINT_BASE}/forgot-password`, formData, false, true);
     return Promise.resolve(response);
   } catch (err) {
     await handleError(dispatch, err, CHANGE_AUTH);
@@ -105,7 +106,7 @@ export const forgotPassword = formData => async (dispatch) => {
  */
 export const resetPassword = (formData, token) => async (dispatch) => {
   try {
-    const response = await post(dispatch, CHANGE_AUTH, `${AUTH_ENDPOINT_BASE}/reset-password/${token}`, formData, false);
+    const response = await post(dispatch, CHANGE_AUTH, `${AUTH_ENDPOINT_BASE}/reset-password/${token}`, formData, false, true);
     return Promise.resolve(response);
   } catch (err) {
     await handleError(dispatch, err, CHANGE_AUTH);
@@ -118,7 +119,7 @@ export const resetPassword = (formData, token) => async (dispatch) => {
  */
 export const getAuthenticatedUser = () => async (dispatch) => {
   try {
-    const response = await get(dispatch, GET_AUTHENTICATED_USER, `${AUTH_ENDPOINT_BASE}/profile`, true);
+    const response = await get(dispatch, GET_AUTHENTICATED_USER, `${AUTH_ENDPOINT_BASE}/profile`, true, true);
     return Promise.resolve(response);
   } catch (err) {
     await handleError(dispatch, err, GET_AUTHENTICATED_USER);

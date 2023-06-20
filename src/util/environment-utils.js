@@ -18,6 +18,7 @@ export const getApiUrl = () => {
     //   return '';
     case 'production':
       //return 'https://pacific-savannah-08041.herokuapp.com';
+      return 'https://balataja-crosswords-api-94aeb475ef42.herokuapp.com'
     case 'stage':
     case 'test':
     case 'development':
@@ -37,6 +38,7 @@ export const getApiLoginUrl = () => {
     //   return '';
     case 'production':
       //return 'https://pacific-savannah-08041.herokuapp.com';
+      return 'https://balataja-crosswords-api-94aeb475ef42.herokuapp.com'
     case 'stage':
     case 'test':
     case 'development':
@@ -58,6 +60,7 @@ export const getAppUrl = () => {
   switch (getEnvironment()) {
     case 'production':
       //return 'https://crosswordswithfriends.herokuapp.com';
+      return 'https://balataja-crosswords-app.herokuapp.com'
     case 'stage':
     case 'test':
     case 'development':

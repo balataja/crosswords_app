@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => ({
-  devtool: 'source-map',
+  //devtool: 'source-map',
   entry: [
     '@babel/polyfill',
     path.join(__dirname, 'src/index.js'),
@@ -16,7 +16,7 @@ module.exports = () => ({
 //   devServer: {
 //       contentBase: "./build"
 //   },
-  devtool: '#eval-source-map',
+  //devtool: '#eval-source-map',
   plugins: [
     // new webpack.optimize.UglifyJsPlugin({
     //   minimize: true,

@@ -8,9 +8,11 @@
   "scripts": {
     "start": "export NODE_ENV=production||set NODE_ENV=production && node src/index2.js --config ./webpack.config.prod.js",
     "dev-hot": "set NODE_ENV=development && webpack-dev-server --host 0.0.0.0 --port 8080 --https --hot --history-api-fallback --config ./webpack.config.js",
+    "dev-hot-prod": "set NODE_ENV=development && webpack-dev-server --host 0.0.0.0 --port 8080 --https --hot --history-api-fallback --config ./webpack.config.prod.js",
     "dev": "set NODE_ENV=development||set NODE_ENV=development && node src/index2.js --config ./webpack.config.prod.js",
     "build-dev": "set NODE_ENV=development && webpack --progress --config ./webpack.config.js",
-    "build": "set NODE_ENV=production|| set NODE_ENV=production && webpack --config ./webpack.config.prod.js",
+    "build-dev-prod": "set NODE_ENV=development && webpack --progress --config ./webpack.config.prod.js",
+    "build": "set NODE_ENV=production && webpack --progress --config ./webpack.config.prod.js",
     "postinstall": "npm run build"
   },
   "engines": {

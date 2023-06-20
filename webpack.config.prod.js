@@ -18,12 +18,12 @@ module.exports = () => ({
 //   },
   devtool: '#eval-source-map',
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   minimize: true,
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(__dirname, 'src/index.html'),

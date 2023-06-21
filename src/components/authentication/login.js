@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 import TextInput from '../form-fields/text-input';
 import GenericForm from '../form-fields/generic-form';
 import { login, CHANGE_AUTH } from '../../redux/modules/authentication';

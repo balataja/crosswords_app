@@ -48,7 +48,8 @@ import '../../stylesheets/notifications.scss';
 import { getAppUrl, getApiUrl } from '../../../../../util/environment-utils';
 
 //const socket = io('ws://localhost:3000', { transports : ['websocket'] });
-const socket = io(`${getApiUrl()}`);
+//const socket = io(`${getApiUrl()}`, { transports : ['websocket'] });
+const socket = io('ws://balataja-crosswords-api-94aeb475ef42.herokuapp.com', { transports : ['websocket'] });
 
 class Crossword extends Component {
   static propTypes = {

@@ -57,7 +57,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: [
     '@babel/polyfill',
-    'react-hot-loader/patch',
     'webpack-dev-server/client?https://localhost:8080',
     path.join(__dirname, 'src/index.js'),
   ],

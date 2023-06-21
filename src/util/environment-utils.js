@@ -60,7 +60,7 @@ export const getAppUrl = () => {
   switch (getEnvironment()) {
     case 'production':
       //return 'https://crosswordswithfriends.herokuapp.com';
-      return 'https://balataja-crosswords-app.herokuapp.com'
+      return 'https://balataja-crosswords-app-cfe0671b94fc.herokuapp.com'
     case 'stage':
     case 'test':
     case 'development':
